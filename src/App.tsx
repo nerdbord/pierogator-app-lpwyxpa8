@@ -3,7 +3,7 @@ import Button from '@components/Button';
 function App() {
   return (
     <div>
-      Na pewno nie pieróg 
+      Na pewno nie pieróg
       <Button />
     </div>
   );
