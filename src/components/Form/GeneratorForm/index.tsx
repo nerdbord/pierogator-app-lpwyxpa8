@@ -3,21 +3,20 @@ import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
 import StepOne from './StepOne';
 import StepTwo from './StepTwo';
 
-type StepOneData = {
-  name: string;
-  imageSrc: string;
-  ingredients: {
+export type StepOneData = {
+  stepOne: {
+    name: string;
+    imageSrc: string;
+
     dough: { name: string; quantity: string }[];
     filling: { name: string; quantity: string }[];
+    ingredients: { name: string; quantity: string }[];
   };
 };
 
-type StepTwoData = {
-  instructions: {
-    dough_preparation: string[];
-    filling_preparation: string[];
-    forming_and_cooking_dumplings: string[];
-    serving: string[];
+export type StepTwoData = {
+  stepTwo: {
+    notes: string;
   };
 };
 
@@ -29,8 +28,9 @@ const GeneratorForm = () => {
   const {
     handleSubmit,
     // formState: { errors },
+    watch,
   } = methods;
-
+  console.log('watch', watch());
   const onSubmit: SubmitHandler<DumplingRecipe> = (data) => console.log(data);
 
   const [steps, setSteps] = useState<'StepOne' | 'StepTwo'>('StepOne');

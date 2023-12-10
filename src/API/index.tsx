@@ -13,14 +13,14 @@ const axiosInstance: AxiosInstance = axios.create({
   },
 });
 
-type ImageResponse = [{ url: string }];
+type ImageResponse = { data: [{ url: string }] };
 
 async function generateImage(prompt: string) {
   try {
     const response = await axiosInstance.post('/openai/images/generations', {
       prompt,
       n: 1,
-      size: '1024x1024',
+      size: '342x233',
     });
 
     return response.data as ImageResponse;
@@ -39,7 +39,7 @@ interface ChatCompletionResponse {
   ];
 }
 
-async function generateChatCompletion() {
+async function generateChatCompletion(content: string) {
   try {
     const response = await axiosInstance.post('/openai/chat/completions', {
       model: 'gpt-3.5-turbo',
@@ -50,8 +50,7 @@ async function generateChatCompletion() {
         },
         {
           role: 'user',
-          content:
-            'Generate only a json no other words. response that contain three keys: dough, falling, ingredients.For this keys you need to generate values that correspond to dumplings. Values need to be min 3 max 6 words separated by coma.',
+          content,
         },
       ],
     });
