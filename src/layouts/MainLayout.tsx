@@ -15,6 +15,15 @@ const MainLayout = () => {
       <section className="px-4">
         <Outlet />
       </section>
+
+      <div
+        onClick={() => {
+          console.log('asdf');
+        }}
+        className="bg-red"
+      >
+        asdfasds
+      </div>
     </main>
   );
 };
