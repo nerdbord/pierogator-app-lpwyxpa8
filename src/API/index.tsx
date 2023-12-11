@@ -11,6 +11,7 @@ const axiosInstance: AxiosInstance = axios.create({
     'Content-Type': 'application/json',
     Authorization: TEAM_API_KEY,
   },
+  timeout: 60000,
 });
 
 type ImageResponse = { data: [{ url: string }] };

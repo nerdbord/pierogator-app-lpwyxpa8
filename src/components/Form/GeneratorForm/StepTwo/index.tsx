@@ -10,13 +10,14 @@ interface StepTwoProps {
 
 const content = ({
   name,
-  imageSrc,
   dough,
   filling,
   ingredients,
   notes,
-}: StepOneData['stepOne'] & StepTwoData['stepTwo']) => `
+}: Omit<StepOneData['stepOne'], 'imageSrc'> & StepTwoData['stepTwo']) => `
+
   Create a JSON no other words. ONLY JSON!!!
+  Return values in polish.
   this JSON looks like:
     {
       "ingredients": {
@@ -72,11 +73,7 @@ const content = ({
       dough:${dough}
       filling:${filling}
       ingredients:${ingredients}
-      imageSrc:${imageSrc}
       notes on the recipe:${notes}
-
-
-    Return values in polish.
 `;
 
 const StepTwo = ({ previousStep }: StepTwoProps) => {

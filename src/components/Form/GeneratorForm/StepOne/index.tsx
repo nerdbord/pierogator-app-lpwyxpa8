@@ -1,3 +1,4 @@
+import BarButton from '@components/BarButton/BarButton';
 import Input from '@components/Form/Input/Input';
 import { generateChatCompletion, generateImage } from '@src/API';
 import { useState } from 'react';
@@ -97,9 +98,11 @@ const StepOne = ({ nextStep }: StepOneProps) => {
           <img src={dumplingImg} loading="lazy" alt="some-dumpling" />
 
           <Input name="stepOne.name" label="Nazwa" />
-          <button type="button" onClick={nextStep}>
-            Zapisz i przejdź do tworzenia przepisu
-          </button>
+
+          <BarButton
+            onClick={nextStep}
+            text="Zapisz i przejdź do tworzenia przepisu"
+          />
         </>
       )}
     </div>
