@@ -13,7 +13,9 @@ function Input({
 
   return (
     <div>
-      <label htmlFor={name}>{label}</label>
+      <label htmlFor={name} className="pr-4">
+        {label}
+      </label>
       <input
         id={name}
         {...register(name)}

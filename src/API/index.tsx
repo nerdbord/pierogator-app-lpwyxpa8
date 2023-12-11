@@ -1,26 +1,37 @@
-import { DumplingRecipe } from '@components/Form/GeneratorForm';
 import axios, { AxiosInstance } from 'axios';
 
-const TEAM_API_KEY =
+const OPEN_AI_KEY =
   '9daaaf77407c4b0eb7e773ccd89b0ae8b40831cd727ab6fcf3d508ed9b787c76';
 
-// Configuring global headers for all queries
-const axiosInstance: AxiosInstance = axios.create({
-  baseURL: 'https://training.nerdbord.io/api/v1',
+const DUMPINGS_API_KEY =
+  'd22137246c107849b3c75c343ab333b9528b9631b53d9416616c46661509e69f';
+
+const openaiAPI: AxiosInstance = axios.create({
+  baseURL: 'https://training.nerdbord.io/api/v1/openai',
   headers: {
     'Content-Type': 'application/json',
-    Authorization: TEAM_API_KEY,
+    Authorization: OPEN_AI_KEY,
   },
+  timeout: 60000,
 });
 
-type ImageResponse = [{ url: string }];
+const dumplingsAPI: AxiosInstance = axios.create({
+  baseURL: 'https://training.nerdbord.io/api/v1/pierogator/dumpling-recipes',
+  headers: {
+    'Content-Type': 'application/json',
+    Authorization: DUMPINGS_API_KEY,
+  },
+  timeout: 60000,
+});
+
+type ImageResponse = { data: [{ url: string }] };
 
 async function generateImage(prompt: string) {
   try {
-    const response = await axiosInstance.post('/openai/images/generations', {
+    const response = await openaiAPI.post('/images/generations', {
       prompt,
       n: 1,
-      size: '1024x1024',
+      size: '342x233',
     });
 
     return response.data as ImageResponse;
@@ -39,9 +50,9 @@ interface ChatCompletionResponse {
   ];
 }
 
-async function generateChatCompletion() {
+async function generateChatCompletion(content: string) {
   try {
-    const response = await axiosInstance.post('/openai/chat/completions', {
+    const response = await openaiAPI.post('/chat/completions', {
       model: 'gpt-3.5-turbo',
       messages: [
         {
@@ -50,8 +61,7 @@ async function generateChatCompletion() {
         },
         {
           role: 'user',
-          content:
-            'Generate only a json no other words. response that contain three keys: dough, falling, ingredients.For this keys you need to generate values that correspond to dumplings. Values need to be min 3 max 6 words separated by coma.',
+          content,
         },
       ],
     });
@@ -61,14 +71,29 @@ async function generateChatCompletion() {
   }
 }
 
-interface CreateDumplingRecipeResponse {}
+interface CreateDumplingRecipeResponse {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  recipe?: Record<string, any>;
+}
+
+export interface DumplingRecipe {
+  name: string;
+  imageSrc: string;
+  ingredients: {
+    dough: { name: string; quantity: string }[];
+    filling: { name: string; quantity: string }[];
+  };
+  instructions: {
+    dough_preparation: string[];
+    filling_preparation: string[];
+    forming_and_cooking_dumplings: string[];
+    serving: string[];
+  };
+}
 
 async function createDumplingRecipe(recipe: DumplingRecipe) {
   try {
-    const response = await axiosInstance.post(
-      '/pierogator/dumpling-recipes',
-      recipe,
-    );
+    const response = await dumplingsAPI.post('', recipe);
 
     return response.data as CreateDumplingRecipeResponse;
   } catch (error) {
@@ -80,7 +105,7 @@ type AllDumplingRecepisResponse = unknown;
 
 async function listAllDumplingRecipes() {
   try {
-    const response = await axiosInstance.get('/pierogator/dumpling-recipes');
+    const response = await dumplingsAPI.get('');
     return response.data as AllDumplingRecepisResponse;
   } catch (error) {
     console.log(error);
@@ -91,7 +116,7 @@ type MyDumplingRecipesResponse = unknown;
 
 async function findMyDumplingRecipes() {
   try {
-    const response = await axiosInstance.get('/pierogator/dumpling-recipes/me');
+    const response = await dumplingsAPI.get('/me');
     return response.data as MyDumplingRecipesResponse;
   } catch (error) {
     console.log(error);
@@ -100,9 +125,7 @@ async function findMyDumplingRecipes() {
 
 async function findDumplingRecipeById(id: string) {
   try {
-    const response = await axiosInstance.get(
-      `/pierogator/dumpling-recipes/${id}`,
-    );
+    const response = await dumplingsAPI.get(`/${id}`);
     return response.data;
   } catch (error) {
     console.log(error);
@@ -111,9 +134,7 @@ async function findDumplingRecipeById(id: string) {
 
 async function deleteDumplingRecipeById(id: string) {
   try {
-    const response = await axiosInstance.delete(
-      `/pierogator/dumpling-recipes/${id}`,
-    );
+    const response = await dumplingsAPI.delete(`/${id}`);
     return response.data;
   } catch (error) {
     console.log(error);

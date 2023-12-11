@@ -2,36 +2,66 @@ import { useState } from 'react';
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
 import StepOne from './StepOne';
 import StepTwo from './StepTwo';
+import { DumplingRecipe, createDumplingRecipe } from '@src/API';
+import { useNavigate } from 'react-router-dom';
 
-type StepOneData = {
-  name: string;
-  imageSrc: string;
-  ingredients: {
-    dough: { name: string; quantity: string }[];
-    filling: { name: string; quantity: string }[];
+export type StepOneData = {
+  stepOne: {
+    name: string;
+    imageSrc: string;
+
+    dough: string;
+    filling: string;
+    ingredients: string;
   };
 };
 
-type StepTwoData = {
-  instructions: {
-    dough_preparation: string[];
-    filling_preparation: string[];
-    forming_and_cooking_dumplings: string[];
-    serving: string[];
+export type StepTwoData = {
+  stepTwo: {
+    notes: string;
+    recipe: Omit<DumplingRecipe, 'name' | 'imageSrc'> & { serving: string[] };
   };
 };
 
-export type DumplingRecipe = StepOneData & StepTwoData;
+export type FormGenerator = StepOneData & StepTwoData;
 
 const GeneratorForm = () => {
-  const methods = useForm<DumplingRecipe>();
+  const methods = useForm<FormGenerator>();
+  const navigate = useNavigate();
 
   const {
     handleSubmit,
     // formState: { errors },
+    watch,
   } = methods;
+  console.log('watch', watch());
 
-  const onSubmit: SubmitHandler<DumplingRecipe> = (data) => console.log(data);
+  const onSubmit: SubmitHandler<FormGenerator> = async (data) => {
+    console.log('data', data);
+    const { name, imageSrc } = data?.stepOne ?? {};
+    const { recipe } = data?.stepTwo ?? {};
+
+    if (!name || !imageSrc || !recipe) {
+      return null;
+    }
+
+    const response = await createDumplingRecipe({
+      name,
+      imageSrc,
+      ingredients: {
+        ...recipe.ingredients,
+      },
+      instructions: {
+        ...recipe.instructions,
+        serving: recipe.serving,
+      },
+    });
+
+    if (!response?.recipe) {
+      return;
+    }
+    navigate('/');
+  };
 
   const [steps, setSteps] = useState<'StepOne' | 'StepTwo'>('StepOne');
 
