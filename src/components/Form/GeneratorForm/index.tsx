@@ -2,28 +2,32 @@ import { useState } from 'react';
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
 import StepOne from './StepOne';
 import StepTwo from './StepTwo';
+import { DumplingRecipe, createDumplingRecipe } from '@src/API';
+import { useNavigate } from 'react-router-dom';
 
 export type StepOneData = {
   stepOne: {
     name: string;
     imageSrc: string;
 
-    dough: { name: string; quantity: string }[];
-    filling: { name: string; quantity: string }[];
-    ingredients: { name: string; quantity: string }[];
+    dough: string;
+    filling: string;
+    ingredients: string;
   };
 };
 
 export type StepTwoData = {
   stepTwo: {
     notes: string;
+    recipe: Omit<DumplingRecipe, 'name' | 'imageSrc'> & { serving: string[] };
   };
 };
 
-export type DumplingRecipe = StepOneData & StepTwoData;
+export type FormGenerator = StepOneData & StepTwoData;
 
 const GeneratorForm = () => {
-  const methods = useForm<DumplingRecipe>();
+  const methods = useForm<FormGenerator>();
+  const navigate = useNavigate();
 
   const {
     handleSubmit,
@@ -31,7 +35,33 @@ const GeneratorForm = () => {
     watch,
   } = methods;
   console.log('watch', watch());
-  const onSubmit: SubmitHandler<DumplingRecipe> = (data) => console.log(data);
+
+  const onSubmit: SubmitHandler<FormGenerator> = async (data) => {
+    console.log('data', data);
+    const { name, imageSrc } = data?.stepOne ?? {};
+    const { recipe } = data?.stepTwo ?? {};
+
+    if (!name || !imageSrc || !recipe) {
+      return null;
+    }
+
+    const response = await createDumplingRecipe({
+      name,
+      imageSrc,
+      ingredients: {
+        ...recipe.ingredients,
+      },
+      instructions: {
+        ...recipe.instructions,
+        serving: recipe.serving,
+      },
+    });
+
+    if (!response?.recipe) {
+      return;
+    }
+    navigate('/');
+  };
 
   const [steps, setSteps] = useState<'StepOne' | 'StepTwo'>('StepOne');
 

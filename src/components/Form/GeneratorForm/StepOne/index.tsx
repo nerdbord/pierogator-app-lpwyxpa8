@@ -12,11 +12,15 @@ const content = `Generate only a json no other words.
    For this keys you need to generate values that correspond to dumplings.
    Values need to be min 3 words separated by coma.
    You can be creative.
+
+    key: dough - contain description of dough separate by comma (adjective)
+    key: filling - contain description of dumpling filling separate by comma (adjective)
+    key: ingredients - contain ingredients of dumpling filling and dough separate by comma (noun)
    
    for example:
    {
     dough: "cienkie, elastyczne ciasto, klasyczny polski przepis z jajkami",
-    falling: "wegańskie ciasto na pszennej mące uniwersalnej. wytrawne, małosolne, przepis typowo polski, tradycyjny.",
+    filling: "wegańskie ciasto na pszennej mące uniwersalnej. wytrawne, małosolne, przepis typowo polski, tradycyjny.",
     ingredients: "cebula, szpinak, feta"
    }
 
@@ -33,20 +37,21 @@ const StepOne = ({ nextStep }: StepOneProps) => {
     const data = await generateChatCompletion(content);
 
     if (!data) {
+      setIsLoading(false);
       return;
     }
 
     try {
-      const { dough, falling, ingredients } = JSON.parse(
+      const { dough, filling, ingredients } = JSON.parse(
         data.choices[0].message.content,
       ) as {
         dough: string;
-        falling: string;
+        filling: string;
         ingredients: string;
       };
 
       setValue('stepOne.dough', dough);
-      setValue('stepOne.falling', falling);
+      setValue('stepOne.filling', filling);
       setValue('stepOne.ingredients', ingredients);
     } catch (err) {
       console.log('Parse error', err);
@@ -59,23 +64,24 @@ const StepOne = ({ nextStep }: StepOneProps) => {
     setIsLoadingImg(true);
 
     const dough = watch('stepOne.dough');
-    const falling = watch('stepOne.falling');
+    const filling = watch('stepOne.filling');
     const ingredients = watch('stepOne.ingredients');
 
-    if (!dough || !falling || !ingredients) {
+    if (!dough || !filling || !ingredients) {
+      setIsLoadingImg(false);
       return;
     }
 
     const img = await generateImage(`
     Create a image of dumpling. 
       That it has dough like: ${dough}.
-      That it has falling like: ${falling}.
+      That it has filling like: ${filling}.
       That it has ingredients like: ${ingredients}.
 
-      Make it look cartoonish.
     `);
 
     if (!img?.data) {
+      setIsLoadingImg(false);
       return;
     }
 
@@ -84,11 +90,12 @@ const StepOne = ({ nextStep }: StepOneProps) => {
   };
 
   const dumplingImg = watch('stepOne.imageSrc') as string;
+
   return (
     <div>
       <button onClick={generateBase}>{JSON.stringify(isLoading)}Generuj</button>
       <Input name="stepOne.dough" label="Ciasto" />
-      <Input name="stepOne.falling" label="Nadzienie" />
+      <Input name="stepOne.filling" label="Nadzienie" />
       <Input name="stepOne.ingredients" label="Składniki" />
       <button onClick={generateDumplingImg}>
         {JSON.stringify(isLoadingImg)}Generuj

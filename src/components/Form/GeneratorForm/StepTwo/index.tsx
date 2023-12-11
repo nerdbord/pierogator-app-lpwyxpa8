@@ -2,98 +2,105 @@ import Input from '@components/Form/Input/Input';
 import { generateChatCompletion } from '@src/API';
 import { useState } from 'react';
 import { useFormContext } from 'react-hook-form';
-import { DumplingRecipe, StepOneData, StepTwoData } from '..';
+import { StepTwoData } from '..';
+import Accordion from '@components/Accordion';
+import List from '@components/List';
+import BarButton from '@components/BarButton/BarButton';
 
 interface StepTwoProps {
   previousStep: () => void;
 }
 
 const content = ({
-  name,
   dough,
   filling,
   ingredients,
   notes,
-}: Omit<StepOneData['stepOne'], 'imageSrc'> & StepTwoData['stepTwo']) => `
+}: {
+  name: string;
+  dough: string;
+  filling: string;
+  ingredients: string;
+} & StepTwoData['stepTwo']) => `
 
   Create a JSON no other words. ONLY JSON!!!
   Return values in polish.
+  
+
+    VIP: when you generate all fields that this note to considerate :${notes}
+  
+  value for this JSON base one this properties:
+   key: ingredients.dough, values ( make it noun): names: ${dough.split(
+     ',',
+   )} quantity: generate string that can be measurement in recipe, and corelate this with name 
+
+   key: ingredients.filling , values: ( make it noun) ${filling.split(
+     ',',
+   )} quantity: generate string that can be measurement in recipe, and corelate this with name 
+   
+ For this two filed above you can enhance it by ${ingredients.split(',')}
+
+  key: instructions.dough_preparation, values: how to prepare dough in steps (make it array)
+  key: instructions.filling_preparation, values: how to prepare filling in steps (make it array) 
+  key: instructions.forming_and_cooking_dumplings, values: how to prepare filling in steps (make it array) 
+
+  key: serving,  values: how to serving this dumplings
+
   this JSON looks like:
     {
       "ingredients": {
         "dough": [
           {
-            "name": "mąki pszennej",
-            "quantity": "2 szklanki"
-          },
-          {
-            "name": "jajka",
-            "quantity": "2"
-          },
-          {
-            "name": "wody",
-            "quantity": "0.5 szklanki"
+            "name": "",
+            "quantity": ""
           },
         ],
         "filling": [
           {
-            "name": "mąki pszennej",
-            "quantity": "2 szklanki"
-          },
-          {
-            "name": "jajka",
-            "quantity": "2"
-          },
-          {
-            "name": "wody",
-            "quantity": "0.5 szklanki"
+            "name": "",
+            "quantity": ""
           },
         ]
       },
       "instructions": {
         "dough_preparation": [
-          "1. Wymieszaj mąkę pszeniczną, jajka i wodę w misce, aż powstanie gładkie, elastyczne ciasto na pierogi.",
-          "2. Owinij ciasto w folię spożywczą i pozostaw je na około 30 minut, aby odpoczęło.",
+          "",
         ],
         "filling_preparation": [
-          "1. Ugotuj ziemniaki w osolonej wodzie do momentu, gdy będą miękkie. Odcedź i odstaw do ostygnięcia.",
-          "2. Pokrój cebulę na drobne kawałki i podsmaż na patelni z odrobiną oleju, aż stanie się miękka i lekko złocista.",
+          "",
         ],
         "forming_and_cooking_dumplings": [
-          "1. Rozwałkuj ciasto na cienką warstwę.",
-          "2. Pokrój ciasto w okręgi za pomocą szklanki lub foremki do pierogów.",
+          "",
         ],
-        "serving": [
-          "Pierogi powinno się podawać na talerzu i można do nich dodać śmietanę lub sos."
-        ]
+        
       },
-
-      Generate it base on this values (don't return them in response):
-      name:${name}
-      dough:${dough}
-      filling:${filling}
-      ingredients:${ingredients}
-      notes on the recipe:${notes}
+        "serving": [
+          ""
+        ]
+    }
 `;
 
 const StepTwo = ({ previousStep }: StepTwoProps) => {
-  const { watch } = useFormContext();
+  const { watch, setValue } = useFormContext();
   const [isLoading, setIsLoading] = useState(false);
 
   const generateRecepis = async () => {
     setIsLoading(true);
-    const { stepOne, stepTwo } = watch() as DumplingRecipe;
+    const { stepOne, stepTwo } = watch();
 
     const data = await generateChatCompletion(
       content({ ...stepOne, ...stepTwo }),
     );
 
     if (!data) {
+      setIsLoading(false);
       return;
     }
 
     try {
-      console.log('data', JSON.parse(data.choices[0].message.content));
+      const recipe = JSON.parse(data.choices[0].message.content);
+
+      setValue('stepTwo.recipe', recipe);
     } catch (err) {
       console.log('Parse error', err);
     } finally {
@@ -102,13 +109,14 @@ const StepTwo = ({ previousStep }: StepTwoProps) => {
   };
 
   const dumplingImg = watch('stepOne.imageSrc') as string;
-  const dumplingName = watch('stepOne.name');
+  const dumplingName = watch('stepOne.name') as string;
+  const dumplingRecipe = watch(
+    'stepTwo.recipe',
+  ) as StepTwoData['stepTwo']['recipe'];
 
   return (
-    <div>
-      <button type="button" onClick={previousStep}>
-        Zmień
-      </button>
+    <>
+      <button onClick={previousStep}>Zmień</button>
 
       <img src={dumplingImg} loading="lazy" alt="some-dumpling" />
 
@@ -119,7 +127,42 @@ const StepTwo = ({ previousStep }: StepTwoProps) => {
       </button>
 
       <Input name="stepTwo.notes" label="Uwagi do przepisu" />
-    </div>
+      {dumplingRecipe && (
+        <>
+          <Accordion title="Składniki">
+            <List
+              lists={Object.values(dumplingRecipe.ingredients).map(
+                (list, idx) => ({
+                  list,
+                  title: ['Ciasto', 'Farsz']?.[idx] ?? '',
+                }),
+              )}
+            />
+          </Accordion>
+          <Accordion title="Przygotowanie">
+            <List
+              lists={Object.values(dumplingRecipe.instructions).map(
+                (list, idx) => ({
+                  list,
+                  title:
+                    [
+                      'Ciasto',
+                      'Farsz',
+                      'Formowanie i przygotowanie pierogów',
+                    ]?.[idx] ?? '',
+                }),
+              )}
+            />
+          </Accordion>
+          <Accordion title="Podawanie">{dumplingRecipe.serving?.[0]}</Accordion>
+
+          <BarButton
+            type="submit"
+            text="Zapisz i przejdź do tworzenia przepisu"
+          />
+        </>
+      )}
+    </>
   );
 };
 
