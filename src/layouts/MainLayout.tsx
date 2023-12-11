@@ -6,8 +6,6 @@ const MainLayout = () => {
   return (
     <main>
       <HeaderBg />
-
-
       <section className="px-4 mt-[136px]">
         <Outlet />
       </section>
