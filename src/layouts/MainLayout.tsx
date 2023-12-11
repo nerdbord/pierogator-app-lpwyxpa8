@@ -10,13 +10,14 @@ const MainLayout = () => {
         <Outlet />
       </section>
 
+
       <div
         onClick={() => {
           console.log('asdf');
         }}
         className="bg-red"
       >
-        asdfasds
+        
       </div>
     </main>
   );
