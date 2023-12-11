@@ -1,49 +1,73 @@
+import DumplingSvg from '@src/assets/Dumplings/DumplingSvg';
+import DumplingSvg1 from '@src/assets/Dumplings/DumplingSvg1';
+import DumplingSvg10 from '@src/assets/Dumplings/DumplingSvg10';
+import DumplingSvg11 from '@src/assets/Dumplings/DumplingSvg11';
+import DumplingSvg2 from '@src/assets/Dumplings/DumplingSvg2';
+import DumplingSvg3 from '@src/assets/Dumplings/DumplingSvg3';
+import DumplingSvg4 from '@src/assets/Dumplings/DumplingSvg4';
+import DumplingSvg5 from '@src/assets/Dumplings/DumplingSvg5';
+import DumplingSvg6 from '@src/assets/Dumplings/DumplingSvg6';
+import DumplingSvg7 from '@src/assets/Dumplings/DumplingSvg7';
+import DumplingSvg8 from '@src/assets/Dumplings/DumplingSvg8';
+import DumplingSvg9 from '@src/assets/Dumplings/DumplingSvg9';
+import DumplingSvg12 from '@src/assets/Dumplings/DunplingSvg12';
 import HeaderBgSvg from '@src/assets/HeaderBgSvg';
-import DumplingSvg from '@src/assets/DumplingSvg';
-import DumplingSvgLeft from '@src/assets/DumplingSvgLeft';
-import DumplingRightSvg from '@src/assets/DumplingRightSvg';
-import DumplingRightCt from '@src/assets/DumplingRightCt';
+
 import Snow from '@src/assets/SnowSvg';
 
 const HeaderBg = () => {
   return (
-    <header className="bg-cover bg-center top-0 z-10 fixed overflow-hidden">
-      <div className="relative">
+    <header>
+      <div className="h-screen bg-cover bg-center top-0 z-10  sticky ">
         <HeaderBgSvg />
-        <div className="absolute top-0 ml-0.5 z-10">
-          <Snow />
+        <div>
+          <div className="absolute top-0 z-10">
+            <Snow />
+          </div>
+          <div className="absolute top-[5px]">
+            <DumplingSvg />
+          </div>
+          <div className="absolute top-[57.40px]">
+            <DumplingSvg2 />
+          </div>
+          <div className="absolute top-[36.84px] left-[18.12px]">
+            <DumplingSvg1 />
+          </div>
+          <div className="absolute top-[8px] left-[55px]">
+            <DumplingSvg3 />
+          </div>
+          <div className="absolute top-[75.74px] left-[33.19px]">
+            <DumplingSvg4 />
+          </div>
+          <div className="absolute top-[7px] left-[105px]">
+            <DumplingSvg5 />
+          </div>
+          <div className="absolute top-[7px] left-[175px]">
+            <DumplingSvg6 />
+          </div>
+          <div className="absolute top-[3px] left-[249px]">
+            <DumplingSvg7 />
+          </div>
+          <div className="absolute top-[9px] left-[287px]">
+            <DumplingSvg8 />
+          </div>
+          <div className="absolute top-[1.47px] left-[354.47px]">
+            <DumplingSvg9 />
+          </div>
+          <div className="absolute top-[32.47px] left-[321.47px]">
+            <DumplingSvg10 />
+          </div>
+          <div className="absolute top-[42.47px] left-[348.47px]">
+            <DumplingSvg11 />
+          </div>
+          <div className="absolute top-[74.47px] left-[307.47px]">
+            <DumplingSvg12 />
+          </div>
+        </div>
+        <div className="font-barrio text-h1 text-white absolute top-[49px] left-[74px]">
+          Pierogator świąteczny
         </div>
       </div>
-      <DumplingSvgLeft top={-2.5} left={-10} rotate={-16} />
-      <DumplingSvgLeft top={50} left={-22} rotate={-10} />
-      <DumplingSvgLeft top={28} left={17} rotate={20} />
-      <DumplingSvgLeft top={0} left={55} rotate={0} />
-      <DumplingSvgLeft top={65} left={31} rotate={-45} />
-      <DumplingSvgLeft top={-4.6} left={102} rotate={30} />
-      <DumplingSvg top={-13.6} left={151} rotate={155} />
-      <div className=" top-10 left-14 ml-5 absolute text-white font-barrio text-h1 flex ">
-        <p className=" font-semibold tracking-wide">PIE</p>
-        <p className="lowercase ">RO</p>
-        <p>GA</p>
-        <p className="lowercase">TO</p>
-        <p>R</p>
-      </div>
-      <div className="top-16 left-16 ml-3.5 mt-2 absolute text-white font-barrio text-h1 flex">
-        <p className="lowercase">Ś</p>
-        <p>W</p>
-        <p className="lowercase">I</p>
-        <p>Ą</p>
-        <p className="lowercase">TE</p>
-        <p>C</p>
-        <p className="lowercase">Z</p>
-        <p>NY</p>
-      </div>
-      <DumplingSvg top={-5} left={252} rotate={15} />
-      <DumplingSvg top={3} left={295} rotate={37} />
-      <DumplingRightSvg top={0} left={354} rotate={0} />
-      <DumplingSvg top={27} left={325} rotate={-10} />
-      <DumplingRightCt top={33} left={348} rotate={0} />
-      <DumplingSvg top={66} left={310} rotate={-5} />
     </header>
   );
 };
