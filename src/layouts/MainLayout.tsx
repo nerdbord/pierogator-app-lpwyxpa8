@@ -1,18 +1,12 @@
-import DumplingSvg from '@src/assets/DumplingSvg';
-import Snow from '@src/assets/SnowSvg';
 import { Outlet } from 'react-router-dom';
+import HeaderBg from '@components/Button/header';
 
 const MainLayout = () => {
   return (
     <main>
-      <header className="bg-dark-green text-center mb-[18px]">
-        <h1 className="text-h1 font-barrio font-normal text-white uppercase">
-          Pierogator świąteczny
-        </h1>
-        <Snow />
-        <DumplingSvg />
-      </header>
-      <section className="px-4">
+      <HeaderBg  />
+
+      <section className="px-4 w-screen h-screen bg-black">
         <Outlet />
       </section>
 

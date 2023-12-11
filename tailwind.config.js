@@ -9,12 +9,13 @@ export default {
         poppins: ['Poppins', 'sans-serif'],
       },
       fontWeight: {
+        light: 100,
         regular: 400,
         medium: 500,
         semibold: 600,
       },
       fontSize: {
-        h1: ['42px', { lineHeight: '34px', letterSpacing: '0%' }],
+        h1: ['42px', { lineHeight: '34px', letterSpacing: '0%', fontWeight: '400' }],
         h2: ['30px', { lineHeight: '24px', letterSpacing: '0%' }],
         h3: ['14px', { lineHeight: '16px', letterSpacing: '0%' }],
         body: ['14px', { lineHeight: '20px', letterSpacing: '0%' }],
