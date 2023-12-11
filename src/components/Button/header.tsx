@@ -18,7 +18,7 @@ import Snow from '@src/assets/SnowSvg';
 const HeaderBg = () => {
   return (
     <header>
-      <div className="h-screen bg-cover bg-center top-0 z-10  sticky ">
+      <div className=" bg-cover bg-center top-0 z-10 fixed">
         <HeaderBgSvg />
         <div>
           <div className="absolute top-0 z-10">
