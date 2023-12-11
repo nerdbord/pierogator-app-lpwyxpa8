@@ -1,8 +1,9 @@
+
 import { useParams } from 'react-router-dom';
 
 const DumplingPage = () => {
   const { id } = useParams();
-
+  
   return (
     <div>
       <h1>Pieróg</h1>
