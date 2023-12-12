@@ -6,6 +6,7 @@ import { StepTwoData } from '..';
 import Accordion from '@components/Accordion';
 import List from '@components/List';
 import BarButton from '@components/BarButton/BarButton';
+import DumplingWithButton from '@components/DumplingWithButton';
 
 interface StepTwoProps {
   previousStep: () => void;
@@ -117,15 +118,26 @@ const StepTwo = ({ previousStep }: StepTwoProps) => {
 
   return (
     <>
-      <button onClick={previousStep}>Zmień</button>
+      <div className="mb-4">
+        <DumplingWithButton
+          title="Pieróg"
+          isLoading={isLoading}
+          onClick={previousStep}
+          text="Zmień"
+        />
+      </div>
 
       <img src={dumplingImg} loading="lazy" alt="some-dumpling" />
 
       <Input name="stepOne.name" value={dumplingName} disabled />
 
-      <button onClick={generateRecepis}>
-        {JSON.stringify(isLoading)} Generuj
-      </button>
+      <div className="mt-8 mb-6">
+        <DumplingWithButton
+          title="Przepis"
+          isLoading={isLoading}
+          onClick={generateRecepis}
+        />
+      </div>
 
       <Input name="stepTwo.notes" label="Uwagi do przepisu" />
       {dumplingRecipe && (

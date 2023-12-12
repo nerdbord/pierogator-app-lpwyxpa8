@@ -1,4 +1,5 @@
 import BarButton from '@components/BarButton/BarButton';
+import DumplingWithButton from '@components/DumplingWithButton';
 import Input from '@components/Form/Input/Input';
 import { generateChatCompletion, generateImage } from '@src/API';
 import { useState } from 'react';
@@ -93,13 +94,24 @@ const StepOne = ({ nextStep }: StepOneProps) => {
 
   return (
     <div>
-      <button onClick={generateBase}>{JSON.stringify(isLoading)}Generuj</button>
+      <div className="mb-6">
+        <DumplingWithButton
+          title="Składniki"
+          isLoading={isLoading}
+          onClick={generateBase}
+        />
+      </div>
       <Input name="stepOne.dough" label="Ciasto" />
       <Input name="stepOne.filling" label="Nadzienie" />
       <Input name="stepOne.ingredients" label="Składniki" />
-      <button onClick={generateDumplingImg}>
-        {JSON.stringify(isLoadingImg)}Generuj
-      </button>
+
+      <div className="mt-8 mb-4">
+        <DumplingWithButton
+          title="Pieróg"
+          isLoading={isLoadingImg}
+          onClick={generateDumplingImg}
+        />
+      </div>
       {dumplingImg && (
         <>
           <img src={dumplingImg} loading="lazy" alt="some-dumpling" />

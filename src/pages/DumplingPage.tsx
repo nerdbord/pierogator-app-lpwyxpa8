@@ -4,6 +4,8 @@ import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import Accordion from '@components/Accordion';
 import List from '@components/List';
+import Button from '@components/Button';
+import DumplingWithTitle from '@components/DumplingWithTitle';
 
 interface Ingredient {
   name: string;
@@ -58,11 +60,17 @@ const DumplingPage = () => {
 
   return (
     <div>
-      <button onClick={() => navigate(-1)}>Back</button>
-      <div>
-        <img src={dumpling.recipe.imageSrc} alt={dumpling.recipe.name} />
-        <h2>{dumpling.recipe.name}</h2>
+      <div className="flex justify-between mb-4">
+        <Button onClick={() => navigate(-1)} text="Back" />
+        <DumplingWithTitle title="Pieróg" where="left" />
       </div>
+      <img src={dumpling.recipe.imageSrc} alt={dumpling.recipe.name} />
+      <h2>{dumpling.recipe.name}</h2>
+
+      <div className="flex justify-end mb-4">
+        <DumplingWithTitle title="Przepis" where="left" />
+      </div>
+
       <div className="flex flex-col gap-2">
         <Accordion title="Składniki">
           <List
