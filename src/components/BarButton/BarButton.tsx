@@ -9,7 +9,7 @@ const BarButton = ({ text, onClick, className, ...rest }: ButtonProps) => {
   return (
     <button
       className={cn(
-        'font-poppins text-button font-semibold bg-dark-green hover:bg-green text-white flex justify-center items-center px-3 py-4 rounded w-full',
+        'flex w-full items-center justify-center rounded bg-dark-green px-3 py-4 font-poppins text-button font-semibold text-white hover:bg-green',
         className,
       )}
       onClick={onClick}

@@ -17,12 +17,12 @@ const Accordion = ({
   const [flag, setFlag] = useToggle(initialState);
 
   return (
-    <div className={cn('border border-gray rounded-[4px] p-4')}>
+    <div className={cn('rounded-[4px] border border-gray p-4')}>
       <div
         onClick={setFlag.toggle}
         className={cn(
-          'flex justify-between items-center cursor-pointer',
-          'font-poppins font-medium text-[16px] text-gray-dark',
+          'flex cursor-pointer items-center justify-between',
+          'font-poppins text-[16px] font-medium text-gray-dark',
         )}
       >
         <h3>{title}</h3>

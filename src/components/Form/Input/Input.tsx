@@ -30,13 +30,13 @@ function Input({
         <h3
           className={`${
             isDisabled ? 'hidden ' : ''
-          }text-dark-green font-poppins font-medium text-h3 mb-[7px]`}
+          }text-dark-green mb-[7px] font-poppins text-h3 font-medium`}
         >
           {label}
         </h3>
       </label>
       <textarea
-        className={`w-full h-auto overflow-hidden overscroll-none bg-gray-background outline-none resize-none font-poppins text-body font-normal rounded border border-gray-light p-4 ${
+        className={`h-auto w-full resize-none overflow-hidden overscroll-none rounded border border-gray-light bg-gray-background p-4 font-poppins text-body font-normal outline-none ${
           isDisabled ? 'mb-9' : 'mb-6'
         }`}
         id={name}

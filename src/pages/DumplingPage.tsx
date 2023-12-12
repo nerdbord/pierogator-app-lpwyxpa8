@@ -60,14 +60,14 @@ const DumplingPage = () => {
 
   return (
     <div>
-      <div className="flex justify-between mb-4">
+      <div className="mb-4 flex justify-between">
         <Button onClick={() => navigate(-1)} text="Back" />
         <DumplingWithTitle title="Pieróg" where="left" />
       </div>
       <img src={dumpling.recipe.imageSrc} alt={dumpling.recipe.name} />
       <h2>{dumpling.recipe.name}</h2>
 
-      <div className="flex justify-end mb-4">
+      <div className="mb-4 flex justify-end">
         <DumplingWithTitle title="Przepis" where="left" />
       </div>
 
@@ -96,7 +96,7 @@ const DumplingPage = () => {
         <Accordion title="Podawanie">
           {serving.map((instruction, idx) => {
             return (
-              <div className="text-body mt-4" key={idx}>
+              <div className="mt-4 text-body" key={idx}>
                 {instruction}
               </div>
             );

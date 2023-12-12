@@ -8,7 +8,7 @@ interface ButtonProps {
 const Button = ({ text, type, isDisabled, onClick }: ButtonProps) => {
   return (
     <button
-      className="font-poppins text-dark-green text-button font-medium bg-white hover:bg-gray-light flex justify-center items-center px-3 py-[10px] border rounded border-gray border-solid"
+      className="flex items-center justify-center rounded border border-solid border-gray bg-white px-3 py-[10px] font-poppins text-button font-medium text-dark-green hover:bg-gray-light"
       onClick={onClick}
       {...(type ? { type } : {})}
       disabled={isDisabled}
