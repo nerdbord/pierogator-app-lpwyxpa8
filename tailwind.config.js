@@ -9,7 +9,6 @@ export default {
         poppins: ['Poppins', 'sans-serif'],
       },
       fontWeight: {
-        light: 100,
         regular: 400,
         medium: 500,
         semibold: 600,
