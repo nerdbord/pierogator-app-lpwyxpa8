@@ -4,7 +4,7 @@ import HeaderBg from '@components/Button/header';
 const MainLayout = () => {
   return (
     <main>
-      <HeaderBg />
+      <HeaderBg>Pierogator świąteczny</HeaderBg>
       <section className="mt-[136px] px-4">
         <Outlet />
       </section>

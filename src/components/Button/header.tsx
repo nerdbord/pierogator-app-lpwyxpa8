@@ -15,57 +15,63 @@ import HeaderBgSvg from '@src/assets/HeaderBgSvg';
 
 import Snow from '@src/assets/SnowSvg';
 
-const HeaderBg = () => {
+interface ListItemProps {
+  children: React.ReactNode;
+}
+
+const HeaderBg = ({ children }: ListItemProps) => {
   return (
-    <header>
-      <div className=" fixed top-0 z-10 bg-cover bg-center">
+    <header className="fixed top-0 flex content-center justify-center">
+      <div className="relative z-10 flex flex-col justify-center bg-cover bg-center">
         <HeaderBgSvg />
         <div>
-          <div className="absolute top-0 z-10">
+          <div className="absolute top-0">
             <Snow />
           </div>
-          <div className="absolute top-[5px]">
-            <DumplingSvg />
-          </div>
-          <div className="absolute top-[57.40px]">
-            <DumplingSvg2 />
-          </div>
-          <div className="absolute left-[18.12px] top-[36.84px]">
-            <DumplingSvg1 />
-          </div>
-          <div className="absolute left-[55px] top-[8px]">
-            <DumplingSvg3 />
-          </div>
-          <div className="absolute left-[33.19px] top-[75.74px]">
-            <DumplingSvg4 />
-          </div>
-          <div className="absolute left-[105px] top-[7px]">
-            <DumplingSvg5 />
-          </div>
-          <div className="absolute left-[175px] top-[7px]">
-            <DumplingSvg6 />
-          </div>
-          <div className="absolute left-[249px] top-[3px]">
-            <DumplingSvg7 />
-          </div>
-          <div className="absolute left-[287px] top-[9px]">
-            <DumplingSvg8 />
-          </div>
-          <div className="absolute left-[354.47px] top-[1.47px]">
-            <DumplingSvg9 />
-          </div>
-          <div className="absolute left-[321.47px] top-[32.47px]">
-            <DumplingSvg10 />
-          </div>
-          <div className="absolute left-[348.47px] top-[42.47px]">
-            <DumplingSvg11 />
-          </div>
-          <div className="absolute left-[307.47px] top-[74.47px]">
-            <DumplingSvg12 />
+          <div className="absolute top-0">
+            <div className="absolute top-[5px]">
+              <DumplingSvg />
+            </div>
+            <div className="absolute top-[57.40px]">
+              <DumplingSvg2 />
+            </div>
+            <div className="absolute left-[18.12px] top-[36.84px]">
+              <DumplingSvg1 />
+            </div>
+            <div className="absolute left-[55px] top-[8px]">
+              <DumplingSvg3 />
+            </div>
+            <div className="absolute left-[33.19px] top-[75.74px]">
+              <DumplingSvg4 />
+            </div>
+            <div className="absolute left-[105px] top-[7px]">
+              <DumplingSvg5 />
+            </div>
+            <div className="absolute left-[175px] top-[7px]">
+              <DumplingSvg6 />
+            </div>
+            <div className="absolute left-[249px] top-[3px]">
+              <DumplingSvg7 />
+            </div>
+            <div className="absolute left-[287px] top-[9px]">
+              <DumplingSvg8 />
+            </div>
+            <div className="absolute left-[354.47px] top-[1.47px]">
+              <DumplingSvg9 />
+            </div>
+            <div className="absolute left-[321.47px] top-[32.47px]">
+              <DumplingSvg10 />
+            </div>
+            <div className="absolute left-[348.47px] top-[42.47px]">
+              <DumplingSvg11 />
+            </div>
+            <div className="absolute left-[307.47px] top-[74.47px]">
+              <DumplingSvg12 />
+            </div>
           </div>
         </div>
-        <div className="absolute left-[74px] top-[49px] font-barrio text-h1 text-white">
-          Pierogator świąteczny
+        <div className=" absolute right-2/4 top-[49px] translate-x-2/4   text-center font-barrio text-h1 text-white">
+          {children}
         </div>
       </div>
     </header>
