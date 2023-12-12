@@ -53,7 +53,7 @@ const DumplingPage = () => {
   if (!dumpling) {
     return null;
   }
-console.log(dumpling);
+  console.log(dumpling);
   const { serving, ...otherInstructions } = dumpling.recipe.instructions;
 
   return (
@@ -63,32 +63,38 @@ console.log(dumpling);
         <img src={dumpling.recipe.imageSrc} alt={dumpling.recipe.name} />
         <h2>{dumpling.recipe.name}</h2>
       </div>
-      <Accordion title="Składniki">
-        <List
-          lists={Object.values(dumpling.recipe.ingredients).map(
-            (list, idx) => ({
+      <div className="flex flex-col gap-2">
+        <Accordion title="Składniki">
+          <List
+            lists={Object.values(dumpling.recipe.ingredients).map(
+              (list, idx) => ({
+                list,
+                title: ['Ciasto', 'Farsz']?.[idx] ?? '',
+              }),
+            )}
+          />
+        </Accordion>
+        <Accordion title="Przygotowanie">
+          <List
+            lists={Object.values(otherInstructions).map((list, idx) => ({
               list,
-              title: ['Ciasto', 'Farsz']?.[idx] ?? '',
-            }),
-          )}
-        />
-      </Accordion>
-      <Accordion title="Przygotowanie">
-        <List
-          lists={Object.values(otherInstructions).map((list, idx) => ({
-            list,
-            title:
-              ['Ciasto', 'Farsz', 'Formowanie i przygotowanie pierogów']?.[
-                idx
-              ] ?? '',
-          }))}
-        />
-      </Accordion>
-      <Accordion title="Podawanie">
-        {serving.map((instruction, idx) => {
-          return <div key={idx}>{instruction}</div>;
-        })}
-      </Accordion>
+              title:
+                ['Ciasto', 'Farsz', 'Formowanie i przygotowanie pierogów']?.[
+                  idx
+                ] ?? '',
+            }))}
+          />
+        </Accordion>
+        <Accordion title="Podawanie">
+          {serving.map((instruction, idx) => {
+            return (
+              <div className="text-body mt-4" key={idx}>
+                {instruction}
+              </div>
+            );
+          })}
+        </Accordion>
+      </div>
     </div>
   );
 };

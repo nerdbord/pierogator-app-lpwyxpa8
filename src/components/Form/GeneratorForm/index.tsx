@@ -29,19 +29,14 @@ const GeneratorForm = () => {
   const methods = useForm<FormGenerator>();
   const navigate = useNavigate();
 
-  const {
-    handleSubmit,
-    // formState: { errors },
-    watch,
-  } = methods;
+  const { handleSubmit, watch } = methods;
   console.log('watch', watch());
 
   const onSubmit: SubmitHandler<FormGenerator> = async (data) => {
-    console.log('data', data);
-    const { name, imageSrc } = data?.stepOne ?? {};
+    const { name = '', imageSrc } = data?.stepOne ?? {};
     const { recipe } = data?.stepTwo ?? {};
 
-    if (!name || !imageSrc || !recipe) {
+    if (!imageSrc || !recipe) {
       return null;
     }
 
@@ -76,7 +71,6 @@ const GeneratorForm = () => {
   const isFirstStep = steps === 'StepOne';
   const isSecondStep = steps === 'StepTwo';
 
-  // pass all methods into the context
   return (
     <FormProvider {...methods}>
       <form onSubmit={handleSubmit(onSubmit)}>
