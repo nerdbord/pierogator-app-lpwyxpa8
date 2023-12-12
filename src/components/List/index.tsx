@@ -1,3 +1,5 @@
+import { cn } from "@utils/cn";
+
 const List = ({
   lists,
 }: {
@@ -7,11 +9,11 @@ const List = ({
   }[];
 }) => {
   return (
-    <div>
+    <div className="pt-4 text-dark-green font-poppins font-normal text-body">
       {lists.map(({ list, title }, idx) => {
         return (
-          <ul key={idx}>
-            <li>{title}</li>
+          <ul key={idx} className="flex flex-col gap-[10px]">
+            <li className={cn("font-bold", idx!==0 && 'mt-10' )}>{title}</li>
             {list.map((listItem, i) => {
               if (typeof listItem === 'string') {
                 return <li key={i}>{listItem}</li>;

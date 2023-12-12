@@ -22,7 +22,6 @@ export default {
         h3: ['14px', { lineHeight: '16px', letterSpacing: 0 }],
         body: ['14px', { lineHeight: '20px', letterSpacing: 0 }],
         button: ['14px', { lineHeight: '16px', letterSpacing: 0 }],
-        button2: ['14px', { lineHeight: '16px', letterSpacing: 0 }],
       },
       colors: {
         'bright-yellow': '#FFE5B2',

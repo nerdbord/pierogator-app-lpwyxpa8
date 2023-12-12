@@ -11,7 +11,7 @@ interface StepTwoProps {
   previousStep: () => void;
 }
 
-const content = ({
+const getContent = ({
   dough,
   filling,
   ingredients,
@@ -23,22 +23,22 @@ const content = ({
   ingredients: string;
 } & StepTwoData['stepTwo']) => `
 
+  Do it fast
   Create a JSON no other words. ONLY JSON!!!
   Return values in polish.
   
-
-    VIP: when you generate all fields that this note to considerate :${notes}
+  VIP: when you generate all fields that this note to considerate :${notes}
   
   value for this JSON base one this properties:
-   key: ingredients.dough, values ( make it noun): names: ${dough.split(
+   key: ingredients.dough, values ( make it noun): names: [${dough.split(
      ',',
-   )} quantity: generate string that can be measurement in recipe, and corelate this with name 
+   )}] quantity: generate string that can be measurement in recipe, and corelate this with name 
 
-   key: ingredients.filling , values: ( make it noun) ${filling.split(
+   key: ingredients.filling , values: ( make it noun) [${filling.split(
      ',',
-   )} quantity: generate string that can be measurement in recipe, and corelate this with name 
+   )}] quantity: generate string that can be measurement in recipe, and corelate this with name 
    
- For this two filed above you can enhance it by ${ingredients.split(',')}
+ For this two filed above you can enhance it by [${ingredients.split(',')}]
 
   key: instructions.dough_preparation, values: how to prepare dough in steps (make it array)
   key: instructions.filling_preparation, values: how to prepare filling in steps (make it array) 
@@ -88,9 +88,10 @@ const StepTwo = ({ previousStep }: StepTwoProps) => {
     setIsLoading(true);
     const { stepOne, stepTwo } = watch();
 
-    const data = await generateChatCompletion(
-      content({ ...stepOne, ...stepTwo }),
-    );
+    const content = getContent({ ...stepOne, ...stepTwo });
+
+    console.log(content, 'content');
+    const data = await generateChatCompletion(content);
 
     if (!data) {
       setIsLoading(false);
@@ -128,7 +129,7 @@ const StepTwo = ({ previousStep }: StepTwoProps) => {
 
       <Input name="stepTwo.notes" label="Uwagi do przepisu" />
       {dumplingRecipe && (
-        <>
+        <div className="flex flex-col gap-2">
           <Accordion title="Składniki">
             <List
               lists={Object.values(dumplingRecipe.ingredients).map(
@@ -159,8 +160,9 @@ const StepTwo = ({ previousStep }: StepTwoProps) => {
           <BarButton
             type="submit"
             text="Zapisz i przejdź do tworzenia przepisu"
+            className="mt-8 mb-[56px]"
           />
-        </>
+        </div>
       )}
     </>
   );
