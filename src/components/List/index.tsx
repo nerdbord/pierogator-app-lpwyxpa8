@@ -10,7 +10,7 @@ const List = ({
     <div>
       {lists.map(({ list, title }, idx) => {
         return (
-          <ol key={idx}>
+          <ul key={idx}>
             <li>{title}</li>
             {list.map((listItem, i) => {
               if (typeof listItem === 'string') {
@@ -19,11 +19,13 @@ const List = ({
 
               return (
                 <li key={i}>
-                  {listItem.quantity} {listItem.name}
+                  <span>
+                    {i + 1}. {listItem.quantity} {listItem.name}
+                  </span>
                 </li>
               );
             })}
-          </ol>
+          </ul>
         );
       })}
     </div>
