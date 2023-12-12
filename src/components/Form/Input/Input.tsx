@@ -1,17 +1,16 @@
-import React, { useState } from 'react';
-import Padlock from '@components/Padlock/Padlock';
 import { useFormContext } from 'react-hook-form';
 
 interface InputProps {
   name: string;
   label?: string;
   placeholder?: string;
+  isDisabled?: boolean;
 }
-
 function Input({
   name,
   label,
-  placeholder = 'wypisz, wygeneruj lub zostaw puste',
+  placeholder,
+  isDisabled = false,
   ...rest
 }: InputProps &
   React.DetailedHTMLProps<
@@ -19,11 +18,6 @@ function Input({
     HTMLTextAreaElement
   >) {
   const { register } = useFormContext(); // retrieve all hook methods
-  const [isLocked, setIsLocked] = useState(false);
-
-  const handleCheckboxChange = () => {
-    setIsLocked((prev) => !prev);
-  };
 
   const handleTextareaChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     e.target.style.height = 'auto';
@@ -32,40 +26,28 @@ function Input({
 
   return (
     <div>
-      <label htmlFor={name} className="pr-4"></label>
-      <h3 className="text-dark-green font-poppins font-medium text-h3 mb-[7px]">
-        {label}
-      </h3>
-
-      <div
-        className={`border-box flex bg-gray-background p-4 gap-3 rounded border ${
-          isLocked ? 'border-gray' : 'border-transparent'
+      <label htmlFor={name} className="">
+        <h3
+          className={`${
+            isDisabled ? 'hidden ' : ''
+          }text-dark-green font-poppins font-medium text-h3 mb-[7px]`}
+        >
+          {label}
+        </h3>
+      </label>
+      <textarea
+        className={`w-full h-auto overflow-hidden overscroll-none bg-gray-background outline-none resize-none font-poppins text-body font-normal rounded border border-gray-light p-4 ${
+          isDisabled ? 'mb-9' : 'mb-6'
         }`}
-      >
-        <label htmlFor={name + 'Padlock'} className="">
-          <Padlock isLocked={isLocked} />
-        </label>
-
-        <textarea
-          className="w-full min-h-[40px] h-auto overflow-hidden overscroll-none bg-inherit outline-none resize-none font-poppins text-body font-normal"
-          id={name}
-          {...register(name)}
-          placeholder={placeholder}
-          rows={1}
-          onChange={handleTextareaChange}
-          {...rest}
-        />
-      </div>
-
-      <input
-        id={name + 'Padlock'}
-        type="checkbox"
-        className="hidden"
-        checked={isLocked}
-        onChange={handleCheckboxChange}
+        id={name}
+        {...register(name)}
+        placeholder={placeholder}
+        disabled={isDisabled}
+        rows={1}
+        onChange={handleTextareaChange}
+        {...rest}
       />
     </div>
   );
 }
-
 export default Input;
