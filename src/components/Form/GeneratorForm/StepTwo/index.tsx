@@ -132,7 +132,7 @@ const StepTwo = ({ previousStep }: StepTwoProps) => {
 
       <Input name="stepOne.name" value={dumplingName} disabled />
 
-      <div className="mt-8 mb-6">
+      <div className="mb-6 mt-8">
         <DumplingWithButton
           title="Przepis"
           isLoading={isLoading}
@@ -169,13 +169,13 @@ const StepTwo = ({ previousStep }: StepTwoProps) => {
             />
           </Accordion>
           <Accordion title="Podawanie">
-            <p className="text-body pt-4">{dumplingRecipe.serving?.[0]}</p>
+            <p className="pt-4 text-body">{dumplingRecipe.serving?.[0]}</p>
           </Accordion>
 
           <BarButton
             type="submit"
             text="Zapisz i przejdź do tworzenia przepisu"
-            className="mt-8 mb-[56px]"
+            className="mb-[56px] mt-8"
           />
         </div>
       )}

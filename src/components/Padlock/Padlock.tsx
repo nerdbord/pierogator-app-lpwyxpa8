@@ -4,7 +4,7 @@ import PadlockOpenSvg from '@src/assets/PadlockOpenSvg';
 const Padlock = ({ isLocked }: { isLocked: boolean }) => {
   return (
     <div
-      className={`flex justify-center items-center p-2  rounded-full w-min ${
+      className={`flex w-min items-center justify-center  rounded-full p-2 ${
         isLocked ? 'bg-bright-yellow' : 'bg-gray'
       }`}
     >

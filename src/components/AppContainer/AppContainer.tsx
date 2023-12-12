@@ -1,7 +1,7 @@
 import { PropsWithChildren } from 'react';
 
 export const AppContainer = ({ children }: PropsWithChildren<object>) => (
-  <div className="max-w-[375px]  my-0 mx-auto overflow-y-auto bg-white">
+  <div className="mx-auto  my-0 max-w-[375px] overflow-y-auto bg-white">
     {children}
   </div>
 );

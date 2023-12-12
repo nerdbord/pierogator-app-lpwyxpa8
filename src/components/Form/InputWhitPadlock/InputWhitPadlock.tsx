@@ -33,12 +33,12 @@ function InputWhitPadlock({
   return (
     <div>
       <label htmlFor={name} className="pr-4"></label>
-      <h3 className="text-dark-green font-poppins font-medium text-h3 mb-[7px]">
+      <h3 className="mb-[7px] font-poppins text-h3 font-medium text-dark-green">
         {label}
       </h3>
 
       <div
-        className={`border-box flex bg-gray-background p-4 gap-3 rounded border ${
+        className={`border-box flex gap-3 rounded border bg-gray-background p-4 ${
           isLocked ? 'border-gray' : 'border-transparent'
         }`}
       >
@@ -47,7 +47,7 @@ function InputWhitPadlock({
         </label>
 
         <textarea
-          className="w-full min-h-[40px] h-auto overflow-hidden overscroll-none bg-inherit outline-none resize-none font-poppins text-body font-normal"
+          className="h-auto min-h-[40px] w-full resize-none overflow-hidden overscroll-none bg-inherit font-poppins text-body font-normal outline-none"
           id={name}
           {...register(name)}
           placeholder={placeholder}

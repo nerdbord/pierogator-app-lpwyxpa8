@@ -106,7 +106,7 @@ const StepOne = ({ nextStep }: StepOneProps) => {
       <InputWhitPadlock name="stepOne.filling" label="Nadzienie" />
       <InputWhitPadlock name="stepOne.ingredients" label="Składniki" />
 
-      <div className="mt-8 mb-4">
+      <div className="mb-4 mt-8">
         <DumplingWithButton
           title="Pieróg"
           isLoading={isLoadingImg}

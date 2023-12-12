@@ -10,7 +10,7 @@ const DumplingWithTitle = ({
   where = 'right',
 }: DumplingWithTitleProps) => {
   return (
-    <div className="flex gap-2 justify-center items-center font-barriecito text-[30px] font-normal leading-6 text-dark-green">
+    <div className="flex items-center justify-center gap-2 font-barriecito text-[30px] font-normal leading-6 text-dark-green">
       {where === 'left' && <BaseDumpling />}
       <h2 className="text-h2">{title}</h2>
       {where === 'right' && <BaseDumpling />}
