@@ -37,7 +37,11 @@ function Input({
         {label}
       </h3>
 
-      <div className="flex bg-gray-background p-4 gap-3 rounded">
+      <div
+        className={`border-box flex bg-gray-background p-4 gap-3 rounded border ${
+          isLocked ? 'border-gray' : 'border-transparent'
+        }`}
+      >
         <label htmlFor={name + 'Padlock'} className="">
           <Padlock isLocked={isLocked} />
         </label>
