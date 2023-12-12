@@ -155,7 +155,9 @@ const StepTwo = ({ previousStep }: StepTwoProps) => {
               )}
             />
           </Accordion>
-          <Accordion title="Podawanie">{dumplingRecipe.serving?.[0]}</Accordion>
+          <Accordion title="Podawanie">
+            <p className="text-body pt-4">{dumplingRecipe.serving?.[0]}</p>
+          </Accordion>
 
           <BarButton
             type="submit"
