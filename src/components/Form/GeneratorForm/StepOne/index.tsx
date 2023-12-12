@@ -1,5 +1,6 @@
 import BarButton from '@components/BarButton/BarButton';
 import DumplingWithButton from '@components/DumplingWithButton';
+import InputWhitPadlock from '@components/Form/InputWhitPadlock/InputWhitPadlock';
 import Input from '@components/Form/Input/Input';
 import { generateChatCompletion, generateImage } from '@src/API';
 import { useState } from 'react';
@@ -101,9 +102,9 @@ const StepOne = ({ nextStep }: StepOneProps) => {
           onClick={generateBase}
         />
       </div>
-      <Input name="stepOne.dough" label="Ciasto" />
-      <Input name="stepOne.filling" label="Nadzienie" />
-      <Input name="stepOne.ingredients" label="Składniki" />
+      <InputWhitPadlock name="stepOne.dough" label="Ciasto" />
+      <InputWhitPadlock name="stepOne.filling" label="Nadzienie" />
+      <InputWhitPadlock name="stepOne.ingredients" label="Składniki" />
 
       <div className="mt-8 mb-4">
         <DumplingWithButton

@@ -1,12 +1,13 @@
-import Input from '@components/Form/Input/Input';
 import { generateChatCompletion } from '@src/API';
 import { useState } from 'react';
 import { useFormContext } from 'react-hook-form';
 import { StepTwoData } from '..';
+
 import Accordion from '@components/Accordion';
 import List from '@components/List';
 import BarButton from '@components/BarButton/BarButton';
 import DumplingWithButton from '@components/DumplingWithButton';
+import Input from '@components/Form/Input/Input';
 
 interface StepTwoProps {
   previousStep: () => void;
