@@ -29,8 +29,7 @@ const GeneratorForm = () => {
   const methods = useForm<FormGenerator>();
   const navigate = useNavigate();
 
-  const { handleSubmit, watch } = methods;
-  console.log('watch', watch());
+  const { handleSubmit} = methods;
 
   const onSubmit: SubmitHandler<FormGenerator> = async (data) => {
     const { name = '', imageSrc } = data?.stepOne ?? {};
