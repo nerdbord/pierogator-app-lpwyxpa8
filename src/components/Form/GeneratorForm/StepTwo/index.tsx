@@ -92,7 +92,6 @@ const StepTwo = ({ previousStep }: StepTwoProps) => {
 
     const content = getContent({ ...stepOne, ...stepTwo });
 
-    console.log(content, 'content');
     const data = await generateChatCompletion(content);
 
     if (!data) {
@@ -122,7 +121,7 @@ const StepTwo = ({ previousStep }: StepTwoProps) => {
       <div className="mb-4">
         <DumplingWithButton
           title="Pieróg"
-          isLoading={isLoading}
+          isLoading={false}
           onClick={previousStep}
           text="Zmień"
         />

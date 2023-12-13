@@ -55,7 +55,7 @@ const DumplingPage = () => {
   if (!dumpling) {
     return null;
   }
-  console.log(dumpling);
+
   const { serving, ...otherInstructions } = dumpling.recipe.instructions;
 
   return (
