@@ -58,7 +58,6 @@ const DumplingPage = () => {
 
   const { serving, ...otherInstructions } = dumpling.recipe.instructions;
 
-  console.log(dumpling.recipe);
   return (
     <div>
       <div className="mb-4 flex justify-between">

@@ -10,7 +10,7 @@ const PadlockOpenSvg = () => {
       <path
         d="M12.75 8.25V4.51583C12.75 2.5138 11.127 0.89083 9.125 0.89083H9.00917C7.07111 0.89083 5.41095 2.45946 5.25 4.39083V4.39083"
         stroke="#002902"
-        stroke-linecap="round"
+        strokeLinecap="round"
       />
       <rect
         x="3.75"
@@ -19,8 +19,8 @@ const PadlockOpenSvg = () => {
         height="7.5"
         rx="1"
         stroke="#002902"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
     </svg>
   );

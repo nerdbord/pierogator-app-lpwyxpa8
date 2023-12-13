@@ -6,8 +6,6 @@ const MainLayout = () => {
   const location = useLocation();
   const isDumplingsCreatorRoute = location.pathname === '/dumpling-creator';
 
-
-
   return (
     <main>
       <HeaderBg>

@@ -48,7 +48,6 @@ const DumplingShopPage = () => {
         dumplingsPromises,
       )) as DumplingType[];
 
-      console.log([myDumplings, allDumplings]);
       setDumplings({
         myDumplings: prepareDumplings(myDumplings),
         allDumplings: prepareDumplings(allDumplings),
