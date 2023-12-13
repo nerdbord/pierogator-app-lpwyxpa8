@@ -3,9 +3,9 @@ import HeaderBg from '@components/Button/header';
 
 const MainLayout = () => {
   return (
-    <main>
+    <main className="h-full">
       <HeaderBg />
-      <section className="mt-[136px] px-4">
+      <section className="mt-[136px] h-full px-4">
         <Outlet />
       </section>
     </main>

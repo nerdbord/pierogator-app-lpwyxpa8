@@ -102,11 +102,12 @@ const StepOne = ({ nextStep }: StepOneProps) => {
           onClick={generateBase}
         />
       </div>
-      <InputWhitPadlock name="stepOne.dough" label="Ciasto" />
-      <InputWhitPadlock name="stepOne.filling" label="Nadzienie" />
-      <InputWhitPadlock name="stepOne.ingredients" label="Składniki" />
-
-      <div className="mb-4 mt-8">
+      <div className="mb-8 flex flex-col gap-6">
+        <InputWhitPadlock name="stepOne.dough" label="Ciasto" />
+        <InputWhitPadlock name="stepOne.filling" label="Nadzienie" />
+        <InputWhitPadlock name="stepOne.ingredients" label="Składniki" />
+      </div>
+      <div className="mb-4">
         <DumplingWithButton
           title="Pieróg"
           isLoading={isLoadingImg}
@@ -115,11 +116,17 @@ const StepOne = ({ nextStep }: StepOneProps) => {
       </div>
       {dumplingImg && (
         <>
-          <img src={dumplingImg} loading="lazy" alt="some-dumpling" />
+          <img
+            src={dumplingImg}
+            loading="lazy"
+            alt="some-dumpling"
+            className="mb-4"
+          />
 
           <Input name="stepOne.name" label="Nazwa" />
 
           <BarButton
+            className="mb-[58px]"
             onClick={nextStep}
             text="Zapisz i przejdź do tworzenia przepisu"
           />
