@@ -32,7 +32,7 @@ function InputWhitPadlock({
 
   return (
     <div>
-      <label htmlFor={name} className="pr-4"></label>
+      <label htmlFor={name} className="hidden"></label>
       <h3 className="mb-[7px] font-poppins text-h3 font-medium text-dark-green">
         {label}
       </h3>
