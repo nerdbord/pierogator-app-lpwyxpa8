@@ -134,7 +134,7 @@ const StepOne = ({ nextStep }: StepOneProps) => {
             src={dumplingImg}
             loading="lazy"
             alt="some-dumpling"
-            className="mb-4"
+            className="mb-4 w-[343px] h-[233px] rounded"
           />
 
           <Input name="stepOne.name" label="Nazwa" />
