@@ -18,7 +18,7 @@ function ListItem({ imageSrc, name }: ListItemProps) {
         src={imageSrc}
         alt={name}
       />
-      <p className="font-poppins">{name}</p>
+      <p className="font-poppins text-wrap]">{name}</p>
     </div>
   );
 }
@@ -31,7 +31,7 @@ function List({ items }: ListProps) {
   return (
     <div className="flex flex-wrap justify-between">
       {items.map((item) => (
-        <div key={item._id} className="gap-5 mb-8">
+        <div key={item._id} className="gap-5 mb-[20px] max-w-[162px]">
           <ListItem {...item} />
         </div>
       ))}
@@ -61,11 +61,11 @@ function MyList({
   return (
     <div className="flex flex-wrap justify-between">
       {items.map((item) => (
-        <div key={item._id} className="gap-5 mb-8">
+        <div key={item._id} className="gap-5 mb-5">
           <ListItem {...item} />
           <div className="flex gap-2">
             <Button text="Otwórz" onClick={() => onClickHandler(item._id)} />
-            <Button text="Usuń" onClick={() => onDelete(item._id)} />
+            <Button  text="Usuń" onClick={() => onDelete(item._id)} />
           </div>
         </div>
       ))}

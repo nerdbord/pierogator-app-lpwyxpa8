@@ -154,7 +154,7 @@ const StepTwo = ({ previousStep }: StepTwoProps) => {
         src={dumplingImg}
         loading="lazy"
         alt="some-dumpling"
-        className="mb-4"
+        className="mb-4 w-[343px] h-[233px] rounded"
       />
 
       <Input name="stepOne.name" value={dumplingName} isDisabled={true} />
@@ -167,7 +167,7 @@ const StepTwo = ({ previousStep }: StepTwoProps) => {
         />
       </div>
 
-      <Input name="stepTwo.notes" label="Uwagi do przepisu" />
+      <Input  name="stepTwo.notes" label="Uwagi do przepisu" placeholder='chrupiące pierogi bez pieczenia, bez użycia miksera'/>
       {dumplingRecipe && (
         <div className="flex flex-col gap-2">
           <Accordion title="Składniki">
@@ -197,7 +197,7 @@ const StepTwo = ({ previousStep }: StepTwoProps) => {
 
           <BarButton
             type="submit"
-            text="Zapisz i przejdź do tworzenia przepisu"
+            text="Udostępnij pieroga"
             className="mb-[56px] mt-8"
           />
         </div>
