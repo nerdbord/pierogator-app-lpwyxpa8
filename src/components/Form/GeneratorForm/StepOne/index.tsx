@@ -30,7 +30,7 @@ const content = `Generate only a json no other words.
    `;
 
 const StepOne = ({ nextStep }: StepOneProps) => {
-  const { setValue, watch } = useFormContext();
+  const { setValue, watch, getValues } = useFormContext();
   const [isLoading, setIsLoading] = useState(false);
   const [isLoadingImg, setIsLoadingImg] = useState(false);
 
@@ -52,9 +52,25 @@ const StepOne = ({ nextStep }: StepOneProps) => {
         ingredients: string;
       };
 
-      setValue('stepOne.dough', dough);
-      setValue('stepOne.filling', filling);
-      setValue('stepOne.ingredients', ingredients);
+      const isDisabledDough = getValues(
+        'disabled.' + 'stepOne.dough' + 'Padlock',
+      ) as boolean;
+      const isDisabledFilling = getValues(
+        'disabled.' + 'stepOne.filling' + 'Padlock',
+      ) as boolean;
+      const isDisabledIngredients = getValues(
+        'disabled.' + 'stepOne.ingredients' + 'Padlock',
+      ) as boolean;
+
+      if (!isDisabledDough) {
+        setValue('stepOne.dough', dough);
+      }
+      if (!isDisabledFilling) {
+        setValue('stepOne.filling', filling);
+      }
+      if (!isDisabledIngredients) {
+        setValue('stepOne.ingredients', ingredients);
+      }
     } catch (err) {
       console.log('Parse error', err);
     } finally {
