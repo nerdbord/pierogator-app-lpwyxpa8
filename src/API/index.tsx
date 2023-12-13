@@ -57,7 +57,7 @@ async function generateChatCompletion(content: string) {
       messages: [
         {
           role: 'system',
-          content: 'You are a helpful assistant.',
+          content: 'You are a helpful assistant. Answer in polish. Return only stringify JSON.'
         },
         {
           role: 'user',
