@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Padlock from '@components/Padlock/Padlock';
-import { useFormContext } from 'react-hook-form';
+import { Controller, useFormContext } from 'react-hook-form';
 
 interface InputWhitPadlockProps {
   name: string;
@@ -18,12 +18,9 @@ function InputWhitPadlock({
     React.TextareaHTMLAttributes<HTMLTextAreaElement>,
     HTMLTextAreaElement
   >) {
-  const { register } = useFormContext(); // retrieve all hook methods
-  const [isLocked, setIsLocked] = useState(false);
+  const { control, watch } = useFormContext(); // retrieve all hook methods
 
-  const handleCheckboxChange = () => {
-    setIsLocked((prev) => !prev);
-  };
+  const isLocked = watch('disabled.' + name + 'Padlock') as boolean;
 
   const handleTextareaChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     e.target.style.height = 'auto';
@@ -42,27 +39,44 @@ function InputWhitPadlock({
           isLocked ? 'border-gray' : 'border-transparent'
         }`}
       >
-        <label htmlFor={name + 'Padlock'} className="">
+        <label htmlFor={'disabled.' + name + 'Padlock'} className="">
           <Padlock isLocked={isLocked} />
         </label>
 
-        <textarea
-          className="h-auto min-h-[40px] w-full resize-none overflow-hidden overscroll-none bg-inherit font-poppins text-body font-normal outline-none"
-          id={name}
-          {...register(name)}
-          placeholder={placeholder}
-          rows={1}
-          onChange={handleTextareaChange}
-          {...rest}
+        <Controller
+          control={control}
+          name={name}
+          render={({ field }) => (
+            <textarea
+              {...field}
+              className="h-auto min-h-[40px] w-full resize-none overflow-hidden overscroll-none bg-inherit font-poppins text-body font-normal outline-none"
+              id={name}
+              placeholder={placeholder}
+              rows={1}
+              onChange={(e) => {
+                field.onChange(e);
+                handleTextareaChange(e);
+              }}
+              {...rest}
+            />
+          )}
         />
       </div>
 
-      <input
-        id={name + 'Padlock'}
-        type="checkbox"
-        className="hidden"
-        checked={isLocked}
-        onChange={handleCheckboxChange}
+      <Controller
+        control={control}
+        name={'disabled.' + name + 'Padlock'}
+        render={({ field }) => (
+          <input
+            id={field.name}
+            type="checkbox"
+            className="hidden"
+            checked={field.value}
+            onChange={(e) => {
+              field.onChange(e.target.checked);
+            }}
+          />
+        )}
       />
     </div>
   );
