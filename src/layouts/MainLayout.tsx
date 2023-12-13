@@ -6,9 +6,11 @@ import Recipes from '@components/Recipes/Recpipes';
 
 const MainLayout = () => {
   return (
-    <main className="">
-      <HeaderBg />
-      <section className="mt-[136px]  px-4">
+
+    <main>
+      <HeaderBg>Pierogator świąteczny</HeaderBg>
+      <section className="mt-[136px] px-4">
+
         <Outlet />
         <GeneratorForm />
 
