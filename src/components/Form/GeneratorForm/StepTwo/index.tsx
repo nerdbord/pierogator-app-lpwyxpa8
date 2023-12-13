@@ -128,11 +128,20 @@ const StepTwo = ({ previousStep }: StepTwoProps) => {
         />
       </div>
 
-      <img src={dumplingImg} loading="lazy" alt="some-dumpling" />
+      <img
+        src={dumplingImg}
+        loading="lazy"
+        alt="some-dumpling"
+        className="mb-4"
+      />
 
-      <Input name="stepOne.name" value={dumplingName} disabled />
+      <Input
+        name="stepOne.name"
+        value={dumplingName}
+        isDisabled={true}
+      />
 
-      <div className="mb-6 mt-8">
+      <div className="mb-6 ">
         <DumplingWithButton
           title="Przepis"
           isLoading={isLoading}
