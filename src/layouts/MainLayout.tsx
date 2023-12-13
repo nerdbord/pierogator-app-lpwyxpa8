@@ -4,14 +4,15 @@ import { useLocation } from 'react-router-dom';
 
 const MainLayout = () => {
   const location = useLocation();
-  const isDumplingsCreatorRoute = location.pathname === '/dumplings-creator';
+  const isDumplingsCreatorRoute = location.pathname === '/dumpling-creator';
 
-  console.log(location.pathname);
+
 
   return (
     <main>
       <HeaderBg>
-        {isDumplingsCreatorRoute ? 'Pierogarnia świateczny' : 'Pierogarnia'}
+        {isDumplingsCreatorRoute ? 'Pierogator świąteczny' : 'Pierogarnia'}
+        
       </HeaderBg>
       <section className="mt-[136px] px-4">
         <Outlet />
