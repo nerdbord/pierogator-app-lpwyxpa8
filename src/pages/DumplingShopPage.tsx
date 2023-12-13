@@ -1,3 +1,4 @@
+import Recipes from '@components/Recipes';
 import { findMyDumplingRecipes, listAllDumplingRecipes } from '@src/API';
 import { useEffect, useState } from 'react';
 
@@ -57,11 +58,20 @@ const DumplingShopPage = () => {
     getDumplings();
   }, []);
 
-  console.log('Tablice obiektów do wyświetlenia:', dumplings);
-
   return (
     <div>
-      <h1>Moje Pierogi</h1> <h1>Pierograrnia</h1>
+      <Recipes
+        myDumplings={dumplings.myDumplings}
+        otherDumplings={dumplings.allDumplings}
+        onDeleteSuccess={(item: { _id: string }) => {
+          setDumplings((prev) => ({
+            ...prev,
+            myDumplings: prev.myDumplings.filter(
+              (dumpling) => dumpling._id !== item._id,
+            ),
+          }));
+        }}
+      />
     </div>
   );
 };

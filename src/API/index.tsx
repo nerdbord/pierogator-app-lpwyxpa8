@@ -135,7 +135,7 @@ async function findDumplingRecipeById(id: string) {
 async function deleteDumplingRecipeById(id: string) {
   try {
     const response = await dumplingsAPI.delete(`/${id}`);
-    return response.data;
+    return response?.data?.deletedRecipe;
   } catch (error) {
     console.log(error);
   }
