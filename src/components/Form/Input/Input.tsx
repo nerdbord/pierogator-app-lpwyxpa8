@@ -29,15 +29,15 @@ function Input({
       <label htmlFor={name} className="">
         <h3
           className={`${
-            isDisabled ? 'hidden ' : ''
-          }text-dark-green mb-[7px] font-poppins text-h3 font-medium`}
+            isDisabled ? 'mb-0 hidden' : 'mb-[7px] '
+          }text-dark-green font-poppins text-h3 font-medium`}
         >
           {label}
         </h3>
       </label>
       <textarea
         className={`h-auto w-full resize-none overflow-hidden overscroll-none rounded border border-gray-light bg-gray-background p-4 font-poppins text-body font-normal outline-none ${
-          isDisabled ? 'mb-9' : 'mb-6'
+          isDisabled ? 'mb-8' : 'mb-6'
         }`}
         id={name}
         {...register(name)}
