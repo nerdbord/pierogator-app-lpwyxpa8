@@ -25,8 +25,6 @@ const content = `Generate only a json no other words.
     filling: "wegańskie ciasto na pszennej mące uniwersalnej. wytrawne, małosolne, przepis typowo polski, tradycyjny.",
     ingredients: "cebula, szpinak, feta"
    }
-
-    Return values in polish.
    `;
 
 const StepOne = ({ nextStep }: StepOneProps) => {

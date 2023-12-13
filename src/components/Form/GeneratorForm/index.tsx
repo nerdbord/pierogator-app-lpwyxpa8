@@ -48,7 +48,6 @@ const GeneratorForm = () => {
       },
       instructions: {
         ...recipe.instructions,
-        serving: recipe.serving,
       },
     });
 

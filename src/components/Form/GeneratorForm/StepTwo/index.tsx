@@ -17,20 +17,12 @@ const getContent = ({
   dough,
   filling,
   ingredients,
-  notes,
 }: {
-  name: string;
   dough: string;
   filling: string;
   ingredients: string;
-} & StepTwoData['stepTwo']) => `
+}) => `
 
-  Do it fast
-  Create a JSON no other words. ONLY JSON!!!
-  Return values in polish.
-  
-  VIP: when you generate all fields that this note to considerate :${notes}
-  
   value for this JSON base one this properties:
    key: ingredients.dough, values ( make it noun): names: [${dough.split(
      ',',
@@ -42,44 +34,64 @@ const getContent = ({
    
  For this two filed above you can enhance it by [${ingredients.split(',')}]
 
-  key: instructions.dough_preparation, values: how to prepare dough in steps (make it array)
-  key: instructions.filling_preparation, values: how to prepare filling in steps (make it array) 
-  key: instructions.forming_and_cooking_dumplings, values: how to prepare filling in steps (make it array) 
-
-  key: serving,  values: how to serving this dumplings
 
   this JSON looks like:
-    {
-      "ingredients": {
-        "dough": [
-          {
-            "name": "",
-            "quantity": ""
-          },
-        ],
-        "filling": [
-          {
-            "name": "",
-            "quantity": ""
-          },
-        ]
-      },
-      "instructions": {
-        "dough_preparation": [
-          "",
-        ],
-        "filling_preparation": [
-          "",
-        ],
-        "forming_and_cooking_dumplings": [
-          "",
-        ],
-        
-      },
-        "serving": [
-          ""
-        ]
-    }
+{
+  "ingredients": {
+    "dough": [
+      {
+        "name": "",
+        "quantity": ""
+      }
+    ],
+    "filling": [
+      {
+        "name": "",
+        "quantity": ""
+      }
+    ]
+  }
+}
+`;
+
+const getInstructions = ({
+  notes,
+  ingredients,
+}: {
+  notes?: string;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  ingredients: any;
+}) => `
+
+
+  when you generate all fields that this note to considerate: ${notes}
+
+  value for this JSON base one this properties:
+
+  ingredients = ${JSON.stringify(ingredients)}
+
+  key: instructions.dough_preparation,              values generate instruction: base it on ingredients values, how to  prepare dough, it should ba a list starting with number of a step min step 3 
+  key: instructions.filling_preparation,            values generate instruction: base it on ingredients values, hot to prepare filling, it should ba a list starting with number of a step min step 3 
+  key: instructions.forming_and_cooking_dumplings,  values generate instruction: base it on ingredients values, how to prepare dumplings, it should ba a list starting with number of a step min step 3 
+  key: instruction.serving,                         values generate instruction: how to serving dumplings 
+
+  this JSON looks like:
+{
+  "instructions": {
+    "dough_preparation": [
+      ""
+    ],
+    "filling_preparation": [
+      ""
+    ],
+    "forming_and_cooking_dumplings": [
+      ""
+    ],
+    "serving": [
+      ""
+    ]
+  }
+}
 `;
 
 const StepTwo = ({ previousStep }: StepTwoProps) => {
@@ -90,19 +102,29 @@ const StepTwo = ({ previousStep }: StepTwoProps) => {
     setIsLoading(true);
     const { stepOne, stepTwo } = watch();
 
-    const content = getContent({ ...stepOne, ...stepTwo });
+    const content = getContent(stepOne);
 
-    const data = await generateChatCompletion(content);
+    const ingredients = await generateChatCompletion(content);
 
-    if (!data) {
+    const ins = getInstructions({
+      notes: stepTwo,
+      ingredients: ingredients?.choices[0].message.content,
+    });
+    const instructions = await generateChatCompletion(ins);
+
+    if (!ingredients || !instructions) {
       setIsLoading(false);
       return;
     }
 
     try {
-      const recipe = JSON.parse(data.choices[0].message.content);
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const data = {
+        ...JSON.parse(ingredients.choices[0].message.content),
+        ...JSON.parse(instructions.choices[0].message.content),
+      };
 
-      setValue('stepTwo.recipe', recipe);
+      setValue('stepTwo.recipe', data);
     } catch (err) {
       console.log('Parse error', err);
     } finally {
@@ -116,6 +138,7 @@ const StepTwo = ({ previousStep }: StepTwoProps) => {
     'stepTwo.recipe',
   ) as StepTwoData['stepTwo']['recipe'];
 
+  const { serving, ...restInstructions } = dumplingRecipe?.instructions ?? {};
   return (
     <>
       <div className="mb-4">
@@ -134,11 +157,7 @@ const StepTwo = ({ previousStep }: StepTwoProps) => {
         className="mb-4"
       />
 
-      <Input
-        name="stepOne.name"
-        value={dumplingName}
-        isDisabled={true}
-      />
+      <Input name="stepOne.name" value={dumplingName} isDisabled={true} />
 
       <div className="mb-6 ">
         <DumplingWithButton
@@ -163,21 +182,17 @@ const StepTwo = ({ previousStep }: StepTwoProps) => {
           </Accordion>
           <Accordion title="Przygotowanie">
             <List
-              lists={Object.values(dumplingRecipe.instructions).map(
-                (list, idx) => ({
-                  list,
-                  title:
-                    [
-                      'Ciasto',
-                      'Farsz',
-                      'Formowanie i przygotowanie pierogów',
-                    ]?.[idx] ?? '',
-                }),
-              )}
+              lists={Object.values(restInstructions).map((list, idx) => ({
+                list,
+                title:
+                  ['Ciasto', 'Farsz', 'Formowanie i przygotowanie pierogów']?.[
+                    idx
+                  ] ?? '',
+              }))}
             />
           </Accordion>
           <Accordion title="Podawanie">
-            <p className="pt-4 text-body">{dumplingRecipe.serving?.[0]}</p>
+            <p className="pt-4 text-body">{serving?.[0]}</p>
           </Accordion>
 
           <BarButton
