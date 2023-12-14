@@ -18,7 +18,7 @@ function Input({
     React.TextareaHTMLAttributes<HTMLTextAreaElement>,
     HTMLTextAreaElement
   >) {
-  const { register } = useFormContext(); // retrieve all hook methods
+  const { register } = useFormContext();
 
   const handleTextareaChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     e.target.style.height = 'auto';
