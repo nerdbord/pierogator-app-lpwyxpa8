@@ -57,6 +57,7 @@ function InputWhitPadlock({
                 field.onChange(e);
                 handleTextareaChange(e);
               }}
+              disabled={isLocked}
               {...rest}
             />
           )}
