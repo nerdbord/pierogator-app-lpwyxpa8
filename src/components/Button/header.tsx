@@ -47,7 +47,7 @@ const HeaderBg = ({ children }: ListItemProps) => {
             <div className="absolute left-[105px] top-[7px]">
               <DumplingSvg5 />
             </div>
-            <div className="absolute left-[175px] top-[7px]">
+            <div className="absolute left-[146px] top-[0px]">
               <DumplingSvg6 />
             </div>
             <div className="absolute left-[249px] top-[3px]">

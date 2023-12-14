@@ -31,7 +31,7 @@ function List({ items }: ListProps) {
   return (
     <div className="flex flex-wrap justify-between">
       {items.map((item) => (
-        <div key={item._id} className="gap-5 mb-[20px] max-w-[162px]">
+        <div key={item._id} className="gap-5 mb-[20px] max-w-[162px] break-words">
           <ListItem {...item} />
         </div>
       ))}
@@ -61,7 +61,7 @@ function MyList({
   return (
     <div className="flex flex-wrap justify-between">
       {items.map((item) => (
-        <div key={item._id} className="gap-5 mb-5">
+        <div key={item._id} className="gap-5 mb-5 break-words max-w-[162px]">
           <ListItem {...item} />
           <div className="flex gap-2">
             <Button text="Otwórz" onClick={() => onClickHandler(item._id)} />
@@ -86,8 +86,8 @@ function Recipes({
 }: RecipesProps) {
   const navigate = useNavigate();
   return (
-    <div className="flex-col ">
-      <div className="mb-[16px] mt-[32px]">
+    <div className="flex-col">
+      <div className="mb-[16px] mt-[32px] ">
         <DumplingWithButton
           title="Moje Pierogi"
           text="Nowy Pieróg"
