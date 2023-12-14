@@ -90,10 +90,9 @@ const StepOne = ({ nextStep }: StepOneProps) => {
 
     const img = await generateImage(`
     Create a image of dumpling. 
-      That it has dough like: ${dough}.
-      That it has filling like: ${filling}.
-      That it has ingredients like: ${ingredients}.
-
+    That it has dough like: ${dough}.
+    That it has filling like: ${filling}.
+    That it has ingredients like: ${ingredients}.
     `);
 
     if (!img?.data) {
@@ -102,7 +101,28 @@ const StepOne = ({ nextStep }: StepOneProps) => {
     }
 
     setValue('stepOne.imageSrc', img.data[0].url);
+
+    const name = await generateDumplingName();
+    setValue('stepOne.name', name);
+
     setIsLoadingImg(false);
+  };
+
+  const generateDumplingName = async () => {
+    const data = await generateChatCompletion(
+      'Come up with a funny and catchy Polish name for pierogies from a Polish restaurant. Reply with just the name, without apostrophes, maximum text characters: 40. The answer should look like: Truskawkowe Chmurki',
+    );
+
+    if (!data) {
+      return;
+    }
+
+    try {
+      const name = data.choices[0].message.content;
+      return name;
+    } catch (err) {
+      console.log('Parse error', err);
+    }
   };
 
   const dumplingImg = watch('stepOne.imageSrc') as string;
@@ -134,7 +154,7 @@ const StepOne = ({ nextStep }: StepOneProps) => {
             src={dumplingImg}
             loading="lazy"
             alt="some-dumpling"
-            className="mb-4 w-[343px] h-[233px] rounded"
+            className="mb-4 h-[233px] w-[343px] rounded"
           />
 
           <Input name="stepOne.name" label="Nazwa" />
