@@ -49,7 +49,7 @@ function InputWhitPadlock({
           render={({ field }) => (
             <textarea
               {...field}
-              className="h-auto min-h-[40px] w-full resize-none overflow-hidden overscroll-none bg-inherit font-poppins text-body font-normal outline-none"
+              className="h-auto min-h-[40px] w-full resize-none overflow-hidden overscroll-none bg-inherit font-poppins text-body font-normal text-dark-green outline-none"
               id={name}
               placeholder={placeholder}
               rows={1}
