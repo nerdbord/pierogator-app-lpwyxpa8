@@ -61,17 +61,24 @@ const DumplingPage = () => {
   return (
     <div>
       <div className="mb-4 flex justify-between">
-        <Button onClick={() => navigate(-1)} text="Back" />
+        <Button onClick={() => navigate(-1)} text="Wróć" />
         <DumplingWithTitle title="Pieróg" where="left" />
       </div>
-      <img src={dumpling.recipe.imageSrc} alt={dumpling.recipe.name} />
-      <h2>{dumpling.recipe.name}</h2>
-
+      <img
+        className="mb-4"
+        src={dumpling.recipe.imageSrc}
+        alt={dumpling.recipe.name}
+      />
+      <div className="mb-8 w-full rounded bg-gray-background p-4">
+        <h3 className="font-poppins text-sm font-normal text-dark-green">
+          {dumpling.recipe.name}
+        </h3>
+      </div>
       <div className="mb-4 flex justify-end">
         <DumplingWithTitle title="Przepis" where="left" />
       </div>
 
-      <div className="flex flex-col gap-2">
+      <div className="mb-[58px] flex flex-col gap-2">
         <Accordion title="Składniki">
           <List
             lists={Object.values(dumpling.recipe.ingredients).map(
