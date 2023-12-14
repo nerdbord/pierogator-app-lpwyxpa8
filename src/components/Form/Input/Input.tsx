@@ -38,7 +38,7 @@ function Input({
       <textarea
         className={`h-auto w-full resize-none overflow-hidden overscroll-none rounded border border-gray-light bg-gray-background p-4 font-poppins text-body font-normal outline-none ${
           isDisabled ? 'mb-8' : 'mb-6'
-        }`}
+        } ${name === 'stepTwo.notes' ? 'min-h-[72px]' : ''}`}
         id={name}
         {...register(name)}
         placeholder={placeholder}
