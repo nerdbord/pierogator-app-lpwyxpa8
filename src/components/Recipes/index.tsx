@@ -28,10 +28,20 @@ interface ListProps {
 }
 
 function List({ items }: ListProps) {
+  const navigate = useNavigate();
+
+  const onClickHandler = (id: string) => {
+    navigate(`/dumpling/${id}`);
+  };
+
   return (
     <div className="flex flex-wrap justify-between">
       {items.map((item) => (
-        <div key={item._id} className="mb-[20px] max-w-[162px] gap-5">
+        <div
+          key={item._id}
+          onClick={() => onClickHandler(item._id)}
+          className="cursor-pointer mb-[20px] max-w-[162px] gap-5"
+        >
           <ListItem {...item} />
         </div>
       ))}
