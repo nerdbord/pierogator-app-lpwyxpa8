@@ -188,7 +188,7 @@ const StepTwo = ({ previousStep }: StepTwoProps) => {
               lists={Object.values(restInstructions).map((list, idx) => ({
                 list,
                 title:
-                  ['Ciasto', 'Farsz', 'Formowanie i przygotowanie pierogów']?.[
+                  ['Ciasto:', 'Farsz', 'Formowanie i przygotowanie pierogów:']?.[
                     idx
                   ] ?? '',
               }))}
