@@ -9,6 +9,8 @@ import { useFormContext } from 'react-hook-form';
 interface StepOneProps {
   nextStep: () => void;
 }
+const maxNameLenght = 40;
+
 const content = `Generate only a json no other words.
    Response that contain three keys: dough, falling, ingredients.
    For this keys you need to generate values that correspond to dumplings.
@@ -119,7 +121,11 @@ const StepOne = ({ nextStep }: StepOneProps) => {
 
     try {
       const name = data.choices[0].message.content;
-      return name;
+      if (name.length <= maxNameLenght) {
+        return name;
+      } else {
+        return name.substring(0, maxNameLenght - 1);
+      }
     } catch (err) {
       console.log('Parse error', err);
     }
@@ -157,7 +163,7 @@ const StepOne = ({ nextStep }: StepOneProps) => {
             className="mb-4 h-[233px] w-[343px] rounded"
           />
 
-          <Input name="stepOne.name" label="Nazwa" />
+          <Input name="stepOne.name" label="Nazwa" maxLength={maxNameLenght} />
 
           <BarButton
             className="mb-[58px]"
