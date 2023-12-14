@@ -14,6 +14,11 @@ export type StepOneData = {
     filling: string;
     ingredients: string;
   };
+  disabled: {
+    dough: boolean;
+    filling: boolean;
+    ingredients: boolean;
+  };
 };
 
 export type StepTwoData = {
@@ -26,13 +31,26 @@ export type StepTwoData = {
 export type FormGenerator = StepOneData & StepTwoData;
 
 const GeneratorForm = () => {
-  const methods = useForm<FormGenerator>();
+  const methods = useForm<FormGenerator>({
+    defaultValues: {
+      stepOne: {
+        dough: '',
+        filling: '',
+        ingredients: '',
+      },
+      disabled: {
+        dough: false,
+        filling: false,
+        ingredients: false,
+      },
+    },
+  });
   const navigate = useNavigate();
 
-  const { handleSubmit} = methods;
+  const { handleSubmit } = methods;
 
   const onSubmit: SubmitHandler<FormGenerator> = async (data) => {
-    const { name = '', imageSrc } = data?.stepOne ?? {};
+    const { name, imageSrc } = data?.stepOne ?? {};
     const { recipe } = data?.stepTwo ?? {};
 
     if (!imageSrc || !recipe) {

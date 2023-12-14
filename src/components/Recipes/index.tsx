@@ -14,11 +14,11 @@ function ListItem({ imageSrc, name }: ListItemProps) {
   return (
     <div className=" flex flex-col">
       <img
-        className="w-[162px] h-[118px] mb-[8px] rounded"
+        className="mb-[8px] h-[118px] w-[162px] rounded"
         src={imageSrc}
         alt={name}
       />
-      <p className="font-poppins text-wrap]">{name}</p>
+      <p className="text-wrap] font-poppins">{name}</p>
     </div>
   );
 }
@@ -31,6 +31,7 @@ function List({ items }: ListProps) {
   return (
     <div className="flex flex-wrap justify-between">
       {items.map((item) => (
+
         <div key={item._id} className="gap-5 mb-[20px] max-w-[162px] break-words">
           <ListItem {...item} />
         </div>
@@ -59,13 +60,15 @@ function MyList({
   };
 
   return (
-    <div className="flex flex-wrap justify-between">
+    <div className="flex flex-wrap justify-between ">
       {items.map((item) => (
+
         <div key={item._id} className="gap-5 mb-5 break-words max-w-[162px]">
+
           <ListItem {...item} />
-          <div className="flex gap-2">
+          <div className="mt-2 flex gap-2">
             <Button text="Otwórz" onClick={() => onClickHandler(item._id)} />
-            <Button  text="Usuń" onClick={() => onDelete(item._id)} />
+            <Button text="Usuń" onClick={() => onDelete(item._id)} />
           </div>
         </div>
       ))}
@@ -98,7 +101,7 @@ function Recipes({
 
       <MyList items={myDumplings} onDeleteSuccess={onDeleteSuccess} />
 
-      <div className="flex justify-self-start mb-[16px] mt-[32px]">
+      <div className="mb-[16px] mt-[12px] flex justify-self-start">
         <DumplingWithTitle title="Pierogarnia" where="left" />
       </div>
       <List items={otherDumplings} />

@@ -1,6 +1,7 @@
 import React from 'react';
 import Padlock from '@components/Padlock/Padlock';
 import { Controller, useFormContext } from 'react-hook-form';
+import { cn } from '@utils/cn';
 
 interface InputWhitPadlockProps {
   name: string;
@@ -35,9 +36,10 @@ function InputWhitPadlock({
       </h3>
 
       <div
-        className={`border-box flex gap-3 rounded border bg-gray-background p-4 ${
-          isLocked ? 'border-gray' : 'border-transparent'
-        }`}
+        className={cn(
+          'border-box flex gap-3 rounded border bg-gray-background p-4',
+          isLocked ? 'border-gray' : 'border-transparent',
+        )}
       >
         <label htmlFor={'disabled.' + name + 'Padlock'} className="">
           <Padlock isLocked={isLocked} />
@@ -49,7 +51,7 @@ function InputWhitPadlock({
           render={({ field }) => (
             <textarea
               {...field}
-              className="h-auto min-h-[40px] w-full resize-none overflow-hidden overscroll-none bg-inherit font-poppins text-body font-normal outline-none"
+              className="h-auto min-h-[40px] w-full resize-none overflow-hidden overscroll-none bg-inherit font-poppins text-body font-normal text-dark-green outline-none"
               id={name}
               placeholder={placeholder}
               rows={1}

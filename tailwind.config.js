@@ -31,7 +31,7 @@ export default {
         gray: '#D6D6D6',
         'gray-light': '#E8E8E8',
         'gray-background': '#F9F9F9',
-        white: '#FFFFFF', // Typically, white is already defined in Tailwind CSS
+        white: '#FFFFFF',
         green: '#004B03',
       },
     },

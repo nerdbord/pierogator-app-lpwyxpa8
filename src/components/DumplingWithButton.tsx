@@ -20,7 +20,7 @@ const DumplingWithButton: React.FC<DumplingSectionProps> = ({
       <DumplingWithTitle title={title} where="left" />
       <div className="flex items-center justify-between gap-2">
         {isLoading && <Loader />}
-        <Button onClick={onClick} text={text} />
+        <Button type="button" onClick={onClick} text={text} />
       </div>
     </div>
   );
