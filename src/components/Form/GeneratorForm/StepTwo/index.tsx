@@ -103,7 +103,6 @@ const StepTwo = ({ previousStep }: StepTwoProps) => {
     const { stepOne, stepTwo } = watch();
 
     const content = getContent(stepOne);
-
     const ingredients = await generateChatCompletion(content);
 
     const ins = getInstructions({
@@ -118,7 +117,6 @@ const StepTwo = ({ previousStep }: StepTwoProps) => {
     }
 
     try {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const data = {
         ...JSON.parse(ingredients.choices[0].message.content),
         ...JSON.parse(instructions.choices[0].message.content),
@@ -139,6 +137,7 @@ const StepTwo = ({ previousStep }: StepTwoProps) => {
   ) as StepTwoData['stepTwo']['recipe'];
 
   const { serving, ...restInstructions } = dumplingRecipe?.instructions ?? {};
+
   return (
     <>
       <div className="mb-4">
@@ -154,12 +153,12 @@ const StepTwo = ({ previousStep }: StepTwoProps) => {
         src={dumplingImg}
         loading="lazy"
         alt="some-dumpling"
-        className="mb-4 w-[343px] h-[233px] rounded"
+        className="mb-4 h-[233px] w-[343px] rounded"
       />
 
       <Input name="stepOne.name" value={dumplingName} isDisabled={true} />
 
-      <div className="mb-6 ">
+      <div className="mb-6">
         <DumplingWithButton
           title="Przepis"
           isLoading={isLoading}
@@ -167,7 +166,11 @@ const StepTwo = ({ previousStep }: StepTwoProps) => {
         />
       </div>
 
-      <Input  name="stepTwo.notes" label="Uwagi do przepisu" placeholder='chrupiące pierogi bez pieczenia, bez użycia miksera'/>
+      <Input
+        name="stepTwo.notes"
+        label="Uwagi do przepisu"
+        placeholder="chrupiące pierogi bez pieczenia, bez użycia miksera"
+      />
       {dumplingRecipe && (
         <div className="flex flex-col gap-2">
           <Accordion title="Składniki">
