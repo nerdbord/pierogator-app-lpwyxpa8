@@ -65,7 +65,7 @@ const DumplingPage = () => {
         <DumplingWithTitle title="Pieróg" where="left" />
       </div>
       <img
-        className="mb-4"
+        className="mb-4 h-[233px] w-[343px] rounded"
         src={dumpling.recipe.imageSrc}
         alt={dumpling.recipe.name}
       />
@@ -94,7 +94,7 @@ const DumplingPage = () => {
             lists={Object.values(otherInstructions).map((list, idx) => ({
               list,
               title:
-                ['Ciasto', 'Farsz', 'Formowanie i przygotowanie pierogów']?.[
+                ['Ciasto:', 'Farsz', 'Formowanie i przygotowanie pierogów:']?.[
                   idx
                 ] ?? '',
             }))}
